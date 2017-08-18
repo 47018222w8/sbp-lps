@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wq.sbp.dao.ReportPriceExtendDao">
+ 	<select id="selectQuoteListBySupId" resultType="Quote">
+ 		SELECT
+			ecb.car_brand_name carBrandName
+		FROM
+			ibs_report_price_extend irpe
+		LEFT JOIN ibs_insurance ii ON irpe.ins_id = ii.id
+		LEFT JOIN es_car_brand ecb ON ii.car_brand_id=ecb.car_brand_id
+		WHERE
+			irpe.supplier_member_id=#{supplierMemberId}
+		ORDER BY
+			irpe.id DESC
+ 	</select>
+</mapper>

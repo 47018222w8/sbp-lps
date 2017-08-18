@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/incloud::head">
+  
+</head>
+<body >
+ 
+<div class="layui-form" >
+  <div class="layui-form-item" >
+    <label class="layui-form-label">账号</label>
+    <div class="layui-input-inline">
+      <input type="text" name="account" lay-verify="required" autocomplete="off" placeholder="请输入账号" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item" >
+    <label class="layui-form-label">密码</label>
+    <div class="layui-input-inline">
+      <input type="password" name="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+    </div>
+  </div>
+  
+</div>
+          
+<script>
+layui.use(['form', 'layedit', 'laydate','jquery'], function(){
+  var form = layui.form()
+  ,layer = layui.layer
+  ,$=layui.jquery
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+  form.on('submit(formDemo)', function(data){
+	var index = layer.load();
+	$.ajax({
+		url:"./validate",
+		type:'post',
+		data:data.field,
+		headers:{'auth':1234},
+		success:function(data){
+			layer.close(index);
+			if(data.code===200){
+				addCookie('Authorization',data.data,3000);
+				window.location.href=ctx+'/main/page';
+			}
+			if(data.code===0){
+				layer.msg(data.msg);
+			}
+		},
+		error:function(){
+			layer.msg('未知错误,请联系管理员')
+		}
+	})
+  });
+});
+</script>
+
+</body>
+</html>

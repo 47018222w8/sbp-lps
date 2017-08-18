@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head th:include="common/incloud::head">
+  
+</head>
+<body>
+<div th:include="common/incloud::nav"></div>
+<div class="layui-form" >
+  <div class="layui-form-item">
+    <label class="layui-form-label">姓名</label>
+    <div class="layui-input-inline">
+      <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">备注</label>
+    <div class="layui-input-inline">
+      <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">是否启用</label>
+    <div class="layui-input-inline">
+      <input type="checkbox" name="zzz" lay-skin="switch" lay-text="启用|禁用">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="subBtn">提交</button>
+    </div>
+  </div>
+</div>
+
+<script>
+layui.use('element', function(){
+  var element = layui.element(); //导航的hover效果、二级菜单等功能，需要依赖element模块
+  
+});
+</script>
+
+</body>
+</html>
