@@ -28,18 +28,24 @@ public class LoginServieImpl implements LoginServie {
     @Override
     public ReturnPojo login(Member member) {
         if (member.getUname() == null || member.getPassword() == null) {
-            return new ReturnPojo(ResultType.NULL_OBJ);
+            return new ReturnPojo(ResultType.PARAM_NULL);
         }
-        member.setPassword(MD5Util.md5(member.getPassword()));
+        String pwd = member.getPassword();
+        member.setPassword(null);
+        Member m1 = memberDao.selectMemberByPwd(member);
+        if (m1 == null) {
+            return new ReturnPojo(ResultType.ACCOUNT_NULL);
+        }
+        member.setPassword(MD5Util.md5(pwd));
         Member m = memberDao.selectMemberByPwd(member);
         if (m == null) {
-            return new ReturnPojo(ResultType.UNAME_OR_PWD_ERROR);
+            return new ReturnPojo(ResultType.PARAM_NULL);
         }
         Store store = new Store();
         store.setMemberId(m.getMemberId());
         Store s = storeDao.selectStoreByStore(store);
         if (s == null) {
-            return new ReturnPojo(ResultType.EMPTY_COMPANY);
+            return new ReturnPojo(ResultType.SUP_NULL);
         }
         Map<String, Object> map = new HashMap<>();
         map.put("memberId", m.getMemberId());

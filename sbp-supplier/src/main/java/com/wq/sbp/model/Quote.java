@@ -10,7 +10,7 @@ public class Quote {
 
     private List<String> carpartList;
 
-    private Integer id;
+    private Integer insId;
 
     public String getCarBrandName() {
         return carBrandName;
@@ -36,12 +36,12 @@ public class Quote {
         this.carpartList = carpartList;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getInsId() {
+        return insId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setInsId(Integer insId) {
+        this.insId = insId;
     }
 
 }

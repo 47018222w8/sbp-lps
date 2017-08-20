@@ -1,11 +1,12 @@
 package com.wq.sbp.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wq.sbp.dao.ReportPriceExtendDao;
+import com.wq.sbp.model.PageHelperParam;
 import com.wq.sbp.model.Quote;
 import com.wq.sbp.model.ReportPriceExtend;
 import com.wq.sbp.service.QuoteService;
@@ -17,8 +18,9 @@ public class QuoteServiceImpl implements QuoteService {
     private ReportPriceExtendDao reportPriceExtendDao;
 
     @Override
-    public List<Quote> getQuoteList(ReportPriceExtend rpe) {
-        return reportPriceExtendDao.selectQuoteListBySupId(rpe);
+    public PageInfo<Quote> getQuoteList(ReportPriceExtend rpe, PageHelperParam param) {
+        PageHelper.startPage(param.getPageNum(), param.getPageSize());
+        return new PageInfo<Quote>(reportPriceExtendDao.selectQuoteListBySupId(rpe));
     }
 
 }

@@ -8,7 +8,9 @@
  			es_member 
  		WHERE 
  			uname=#{uname} 
- 		AND 
- 			`password`=#{password};
+ 		<if test="password != null">
+	 		AND 
+	 			`password`=#{password};
+ 		</if>
  	</select>
 </mapper>

@@ -3,7 +3,8 @@
 <mapper namespace="com.wq.sbp.dao.ReportPriceExtendDao">
  	<select id="selectQuoteListBySupId" resultType="Quote">
  		SELECT
-			ecb.car_brand_name carBrandName
+			ecb.car_brand_name 	carBrandName,
+			irpe.ins_id			insId
 		FROM
 			ibs_report_price_extend irpe
 		LEFT JOIN ibs_insurance ii ON irpe.ins_id = ii.id

@@ -1,11 +1,11 @@
 package com.wq.sbp.service;
 
-import java.util.List;
-
+import com.github.pagehelper.PageInfo;
+import com.wq.sbp.model.PageHelperParam;
 import com.wq.sbp.model.Quote;
 import com.wq.sbp.model.ReportPriceExtend;
 
 public interface QuoteService {
 
-    List<Quote> getQuoteList(ReportPriceExtend rpe);
+    PageInfo<Quote> getQuoteList(ReportPriceExtend rpe, PageHelperParam param);
 }

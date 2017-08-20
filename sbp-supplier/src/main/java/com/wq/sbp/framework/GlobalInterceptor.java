@@ -28,14 +28,14 @@ public class GlobalInterceptor extends HandlerInterceptorAdapter {
         try {
             String token = request.getHeader(Constants.JWT_HEADER);
             token = token.substring(Constants.JWT_TOKEN_HEAD.length());
-            request.setAttribute("userId", JWTUtil.getClaimsFromToken(token).get("userId"));
+            request.setAttribute("memberId", JWTUtil.getClaimsFromToken(token).get("memberId"));
         }
         catch (Exception e) {
             logger.error("解析token", e);
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json; charset=utf-8");
             PrintWriter pw = response.getWriter();
-            ReturnPojo rp = new ReturnPojo(ResultType.LOGIN_TIME_OUT);
+            ReturnPojo rp = new ReturnPojo(ResultType.LOGIN_EXPIRED);
             pw.append(JSON.toJSONString(rp));
             return false;
         }
@@ -43,7 +43,7 @@ public class GlobalInterceptor extends HandlerInterceptorAdapter {
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, // ③
+    public void postHandle(HttpServletRequest request,
                            HttpServletResponse response,
                            Object handler,
                            ModelAndView modelAndView) throws Exception {
