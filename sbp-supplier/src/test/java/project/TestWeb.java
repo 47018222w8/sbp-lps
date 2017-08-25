@@ -62,7 +62,7 @@ public class TestWeb {
 
     @Test
     public void testLogin() throws Exception {
-        MvcResult result = mockMvc.perform(post("/v1/login/validate").param("account", "zxj").param("password", "930610"))
+        MvcResult result = mockMvc.perform(post("/api/1.0/LPS/login/validate").param("uname", "众联安顺").param("password", "666666"))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.code").value(200)).andReturn();
         JSONObject jo = JSON.parseObject(result.getResponse().getContentAsString());
         token = jo.getString("data");
@@ -73,7 +73,12 @@ public class TestWeb {
         mockMvc.perform(get("/api/1.0/LPS/quote/list").param("supplierMemberId", "445")).andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200)).andReturn();
     }
-
+    @Test
+    public void testQuoteInfoGet() throws Exception {
+        testLogin();
+        mockMvc.perform(get("/api/1.0/LPS/quote/info/754").header(Constants.JWT_HEADER, token)).andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200)).andReturn();
+    }
     @Test
     public void testDoctorGet() throws Exception {
         testLogin();
