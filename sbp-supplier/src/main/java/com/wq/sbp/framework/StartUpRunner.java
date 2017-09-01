@@ -22,6 +22,7 @@ public class StartUpRunner implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) throws Exception {
+        asyncService.cacheQualityProperty();
     }
 
 }

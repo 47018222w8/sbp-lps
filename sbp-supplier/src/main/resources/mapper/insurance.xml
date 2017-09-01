@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wq.sbp.dao.InsuranceDao">
- 	<select id="selectInsuranceById" resultType="Quote">
+ 	<select id="selectInsuranceById" resultType="Insurance">
  		SELECT
 			ii.car_mark 			carMark,
-			ecb.car_brand_name		title,
+			ecb.car_brand_name		carBrandName,
 		  	eem.contact_mobile		contactMobile,
 			eem.ent_member_name		entMemberName,
 			eem.address,
 			FROM_UNIXTIME(ii.arrive_time) arriveTime,
 			ii.vin,
-			IF(ii.is_invoice=1,'需要','不需要') invoice,
-			ii.car_no carNo
-			
+			ii.is_invoice			invoice,
+			ii.car_no 				carNo,
+			ai.drive_license		driveLicense,
+			CONCAT(#{parm1},ai.rear_img)	rearImg,
+			CONCAT(#{parm1},ai.front_img)	frontImg,
+			CONCAT(#{parm1},ai.drive_license)	driveLicense
 		FROM
 			ibs_insurance ii
 		LEFT JOIN
 		es_car_brand ecb ON ii.car_brand_id=ecb.car_brand_id
 		LEFT JOIN
 		es_ent_member eem ON ii.repair_id=eem.member_id
+		LEFT JOIN
+		t_askprice_insurance ai ON ii.id=ai.ins_id
  		WHERE ii.id=#{id}
  	</select>
 </mapper>

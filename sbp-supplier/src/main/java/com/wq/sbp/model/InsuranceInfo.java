@@ -29,8 +29,6 @@ public class InsuranceInfo {
     // 是否处理:0.未处理,1.已处理,默认为0
     private Integer isProcess;
 
-    // 0：未询价，1：询价中， 2：询价完成，3：询价超时，4：报价中，5：报价完成，6：已推送给保险公司，7：保险公司已确认，8：保险公司拒绝，9：已推送给维修厂，10：维修厂已确认，11：已生成订单，
-    // 20,库管收货，21,试件人收货(零件入库) 22，退货
     private String reportState;
 
     private String img;

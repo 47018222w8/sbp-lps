@@ -1,8 +1,12 @@
 package com.wq.sbp.service.impl;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -29,6 +33,9 @@ public class QuoteServiceImpl implements QuoteService {
     @Autowired
     private ReportPriceDao reportPriceDao;
 
+    @Resource
+    private RedisTemplate<String, String> redisTemplate;
+
     @Override
     public PageInfo<Quote> getQuoteList(ReportPriceExtend rpe, PageHelperParam param) {
         rpe.setParam1(Constants.EAUTO100_IMG_VISIT);
@@ -40,8 +47,10 @@ public class QuoteServiceImpl implements QuoteService {
     @Override
     public JSONObject getQuoteInfo(ReportPrice rp, Insurance insurance) {
         JSONObject jo = new JSONObject();
+        insurance.setParm1(Constants.DOMAIN);
         jo.put("ins", insuranceDao.selectInsuranceById(insurance));
-        jo.put("list", reportPriceDao.selectInsuranceInfoByInsIdAndSupId(rp));
+        jo.put("insInfoList", reportPriceDao.selectInsuranceInfoByInsIdAndSupId(rp));
+        jo.put("qualityList", JSON.parseArray(redisTemplate.opsForValue().get(Constants.CACHE_QUALITY_PROPERTY)));
         return jo;
     }
 

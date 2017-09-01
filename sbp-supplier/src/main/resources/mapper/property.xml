@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wq.sbp.dao.PropertyDao">
+ 	<select id="selectPropertyChildListByCode" resultType="Property">
+		SELECT
+			id					id,
+			property_code		propertyCode,
+			property_name		propertyName,
+			pid					pid
+		FROM
+			t_property
+		WHERE
+			pid = (SELECT id FROM t_property WHERE property_code = #{code})
+	    AND
+	    	 property_state=1
+	    ORDER BY SORT ASC
+	</select> 
+</mapper>

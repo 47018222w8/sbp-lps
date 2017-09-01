@@ -28,10 +28,10 @@ import org.junit.Test;
  */
 public class CreateBean {
 
-    private String tablename = "ibs_report_price";
+    private String tablename = "ibs_report_price_info";
 
     // 不写默认为驼峰
-    private String modelName = "ReportPrice";
+    private String modelName = "ReportPriceInfo";
 
     private String modelOutPath = "com.wq.sbp.model";
 

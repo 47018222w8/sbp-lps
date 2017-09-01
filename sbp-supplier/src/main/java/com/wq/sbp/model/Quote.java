@@ -1,12 +1,6 @@
 package com.wq.sbp.model;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.util.StringUtils;
 
 /**
  * 报价展示的各种数据
@@ -41,24 +35,6 @@ public class Quote {
 
     private String carNo;
 
-    private String entMemberName;
-
-    private String contactMobile;
-
-    private String address;
-
-    // t_report_price 报价金额
-    private BigDecimal reportPrice;
-
-    // t_report_price 零件质量
-    private Integer qualityRequirement;
-
-    // t_report_price 发货时间
-    private String canShipDateBs;
-
-    // t_report_price 备注
-    private String remark;
-
     // 报价状态
     private Integer state;
 
@@ -71,69 +47,6 @@ public class Quote {
     private String src;
 
     private String url;
-
-    private List<Map<String, String>> previewList;
-
-    public List<Map<String, String>> getPreviewList() {
-        previewList = new LinkedList<>();
-        Map<String, String> map = new HashMap<>();
-        map.put("label", "车型");
-        map.put("value", this.carMark);
-        previewList.add(map);
-        Map<String, String> map1 = new HashMap<>();
-        map1.put("label", "车牌号");
-        map1.put("value", StringUtils.isEmpty(this.carNo) ? "无" : this.carNo);
-        previewList.add(map1);
-        Map<String, String> map2 = new HashMap<>();
-        map2.put("label", "vin");
-        map2.put("value", "00000000000000000".equals(this.vin) ? "无" : this.vin);
-        previewList.add(map2);
-        Map<String, String> map4 = new HashMap<>();
-        map4.put("label", "到货时间");
-        map4.put("value", this.arriveTime);
-        previewList.add(map4);
-        Map<String, String> map5 = new HashMap<>();
-        map5.put("label", "修理厂");
-        map5.put("value", this.entMemberName);
-        previewList.add(map5);
-        Map<String, String> map6 = new HashMap<>();
-        map6.put("label", "电话");
-        map6.put("value", this.contactMobile);
-        previewList.add(map6);
-        Map<String, String> map7 = new HashMap<>();
-        map7.put("label", "地址");
-        map7.put("value", this.address);
-        previewList.add(map7);
-        Map<String, String> map3 = new HashMap<>();
-        map3.put("label", "是否需要发票");
-        map3.put("value", this.invoice);
-        previewList.add(map3);
-        return previewList;
-    }
-
-    public String getEntMemberName() {
-        return entMemberName;
-    }
-
-    public void setEntMemberName(String entMemberName) {
-        this.entMemberName = entMemberName;
-    }
-
-    public String getContactMobile() {
-        return contactMobile;
-    }
-
-    public void setContactMobile(String contactMobile) {
-        this.contactMobile = contactMobile;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String getVin() {
         return vin;
@@ -189,38 +102,6 @@ public class Quote {
 
     public void setState(Integer state) {
         this.state = state;
-    }
-
-    public BigDecimal getReportPrice() {
-        return reportPrice;
-    }
-
-    public void setReportPrice(BigDecimal reportPrice) {
-        this.reportPrice = reportPrice;
-    }
-
-    public Integer getQualityRequirement() {
-        return qualityRequirement;
-    }
-
-    public void setQualityRequirement(Integer qualityRequirement) {
-        this.qualityRequirement = qualityRequirement;
-    }
-
-    public String getCanShipDateBs() {
-        return canShipDateBs;
-    }
-
-    public void setCanShipDateBs(String canShipDateBs) {
-        this.canShipDateBs = canShipDateBs;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
     }
 
     public String getDesc() {
