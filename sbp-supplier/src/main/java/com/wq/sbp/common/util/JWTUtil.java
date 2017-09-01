@@ -14,14 +14,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JWTUtil {
     private static String secret="zwq";
     
-    public static void main(String[] args) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("memberId", 1);
-        String result = generateToken(map);
-        System.out.println(result);
-        Claims cl=getClaimsFromToken(result);
-        System.out.println(cl.get("memberId"));
-    }
+//    public static void main(String[] args) {
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("memberId", 1);
+//        String result = generateToken(map);
+//        System.out.println(result);
+//        Claims cl=getClaimsFromToken(result);
+//        System.out.println(cl.get("memberId"));
+//    }
 
     public static String generateToken(Map<String, Object> claims) {
         

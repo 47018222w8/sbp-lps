@@ -48,8 +48,8 @@ public class CreateBean {
     private String user = "root";
 
     private String pwd = "123456";
-
-    public static void main(String[] args) {
+    @Test
+    public void test1() {
         CreateBean createBean = new CreateBean();
         createBean.createBeanMethod();
     }
