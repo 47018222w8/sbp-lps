@@ -2,10 +2,12 @@ package com.wq.sbp.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.wq.sbp.model.Insurance;
+import com.wq.sbp.model.InsuranceDO;
 
 @Mapper
 public interface InsuranceDao {
 
-    Insurance selectInsuranceById(Insurance insurance);
+    InsuranceDO getInsuranceById(InsuranceDO insurance);
+
+    int updateInsuranceSelective(InsuranceDO ins);
 }

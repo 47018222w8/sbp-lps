@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wq.sbp.dao.ReportPriceExtendDao">
- 	<select id="selectQuoteListBySupId" resultType="Quote">
+ 	<select id="listQuoteListBySupId" resultType="QuoteDTO">
  		SELECT
  			REPLACE (
 				ecb.app_logo,
@@ -40,4 +40,20 @@
 		ORDER BY
 			irpe.id DESC
  	</select>
+ 	<update id="updateReportPriceExtendSelective">
+ 		UPDATE 
+ 			ibs_report_price_extend 
+ 		SET
+ 			gmt_modify=NOW()
+			<if test="reportState != null">
+				,report_state = #{reportState}
+			</if>
+			<if test="gmtQuote != null">
+				,gmt_quote = #{gmtQuote}
+			</if>		
+		WHERE
+			ins_id = #{insId}
+		AND 
+			supplier_member_id = #{supplierMemberId}
+ 	</update>
 </mapper>

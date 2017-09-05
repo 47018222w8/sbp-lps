@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wq.sbp.dao.InsuranceDao">
- 	<select id="selectInsuranceById" resultType="Insurance">
+ 	<select id="getInsuranceById" resultType="InsuranceDO">
  		SELECT
 			ii.car_mark 			carMark,
 			ecb.car_brand_name		carBrandName,
@@ -26,4 +26,19 @@
 		t_askprice_insurance ai ON ii.id=ai.ins_id
  		WHERE ii.id=#{id}
  	</select>
+ 	<update id="updateInsuranceSelective">
+ 		UPDATE 
+ 			ibs_insurance
+ 		<set>
+ 			<if test="reportState != null">
+ 				report_state = #{reportState}
+ 			</if>
+ 		</set>
+		 WHERE 
+		 	id = #{id}
+		 <if test="repairId != null">
+		 	AND
+		 		repair_id=#{repairId}
+		 </if>
+ 	</update>
 </mapper>

@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author weiyuan
  * @since 2017年6月20日
  */
-public class ReturnPojo implements Serializable {
+public class ReturnVO implements Serializable {
 
     private static final long serialVersionUID = -8130588879304354948L;
 
@@ -18,27 +18,30 @@ public class ReturnPojo implements Serializable {
 
     private Object data;
 
-    public ReturnPojo(ResultType rt) {
+    public ReturnVO() {
+    }
+
+    public ReturnVO(ResultType rt) {
         this.code = rt.getCode();
         this.msg = rt.getMsg();
     }
 
-    public ReturnPojo(ResultType rt, Object data) {
+    public ReturnVO(ResultType rt, Object data) {
         this.code = rt.getCode();
         this.msg = rt.getMsg();
         this.data = data;
     }
 
-    public ReturnPojo(int code) {
+    public ReturnVO(int code) {
         this.code = code;
     }
 
-    public ReturnPojo(int code, String msg) {
+    public ReturnVO(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    public ReturnPojo(int code, Object data) {
+    public ReturnVO(int code, Object data) {
         this.code = code;
         this.data = data;
     }

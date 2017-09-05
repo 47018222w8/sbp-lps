@@ -7,7 +7,7 @@ import java.util.Date;
  * IbsReportPriceExtend 实体类
  * 2017-08-18
  */
-public class ReportPriceExtend {
+public class ReportPriceExtendDO {
 
     // 主键 自增序列
     private Integer id;

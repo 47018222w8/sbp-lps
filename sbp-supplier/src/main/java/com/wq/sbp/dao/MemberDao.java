@@ -2,7 +2,7 @@ package com.wq.sbp.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.wq.sbp.model.Member;
+import com.wq.sbp.model.MemberDO;
 
 @Mapper
 public interface MemberDao {
@@ -16,5 +16,5 @@ public interface MemberDao {
      * @author zwq
      * @since 2017年8月18日
      */
-    Member selectMemberByPwd(Member member);
+    MemberDO getMemberByPwd(MemberDO member);
 }

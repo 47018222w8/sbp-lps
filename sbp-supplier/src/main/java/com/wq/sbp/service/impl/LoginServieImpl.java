@@ -10,10 +10,10 @@ import com.wq.sbp.common.util.JWTUtil;
 import com.wq.sbp.common.util.MD5Util;
 import com.wq.sbp.dao.MemberDao;
 import com.wq.sbp.dao.StoreDao;
-import com.wq.sbp.model.Member;
+import com.wq.sbp.model.MemberDO;
 import com.wq.sbp.model.ResultType;
-import com.wq.sbp.model.ReturnPojo;
-import com.wq.sbp.model.Store;
+import com.wq.sbp.model.ReturnVO;
+import com.wq.sbp.model.StoreDO;
 import com.wq.sbp.service.LoginServie;
 
 @Service
@@ -26,30 +26,30 @@ public class LoginServieImpl implements LoginServie {
     private StoreDao storeDao;
 
     @Override
-    public ReturnPojo login(Member member) {
+    public ReturnVO login(MemberDO member) {
         if (member.getUname() == null || member.getPassword() == null) {
-            return new ReturnPojo(ResultType.PARAM_NULL);
+            return new ReturnVO(ResultType.PARAM_NULL);
         }
         String pwd = member.getPassword();
         member.setPassword(null);
-        Member m1 = memberDao.selectMemberByPwd(member);
+        MemberDO m1 = memberDao.getMemberByPwd(member);
         if (m1 == null) {
-            return new ReturnPojo(ResultType.ACCOUNT_NULL);
+            return new ReturnVO(ResultType.ACCOUNT_NULL);
         }
         member.setPassword(MD5Util.md5(pwd));
-        Member m = memberDao.selectMemberByPwd(member);
+        MemberDO m = memberDao.getMemberByPwd(member);
         if (m == null) {
-            return new ReturnPojo(ResultType.PARAM_NULL);
+            return new ReturnVO(ResultType.PARAM_NULL);
         }
-        Store store = new Store();
+        StoreDO store = new StoreDO();
         store.setMemberId(m.getMemberId());
-        Store s = storeDao.selectStoreByStore(store);
+        StoreDO s = storeDao.getStoreByStore(store);
         if (s == null) {
-            return new ReturnPojo(ResultType.SUP_NULL);
+            return new ReturnVO(ResultType.SUP_NULL);
         }
         Map<String, Object> map = new HashMap<>();
         map.put("memberId", m.getMemberId());
-        return new ReturnPojo(ResultType.SUCCESS, JWTUtil.generateToken(map));
+        return new ReturnVO(ResultType.SUCCESS, JWTUtil.generateToken(map));
     }
 
 }

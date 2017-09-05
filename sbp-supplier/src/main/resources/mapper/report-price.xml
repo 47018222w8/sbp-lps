@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wq.sbp.dao.ReportPriceDao">
  	
-	<select id="selectInsuranceInfoByInsIdAndSupId" resultType="ReportPrice">
+	<select id="listInsuranceInfoByInsIdAndSupId" resultType="ReportPriceDO">
 		SELECT
 			iii.`name`,
 			iii.id insInfoId,
@@ -16,5 +16,38 @@
 		WHERE
 			irp.ins_id = #{insId}
 		AND irp.member_id = #{memberId}
-	</select> 	
+	</select>
+	
+	<insert id="saveReportPriceInfo">
+		INSERT INTO ibs_report_price_info ( report_price_id, report_price,
+	  	 	report_state, create_time, can_ship_date_bs, remark, is_quote)
+	  	VALUES
+  		<foreach collection="list" item="item" index="index" separator=",">
+  		  ( #{item.reportPriceId},#{item.reportPrice}, #{item.reportState}, 
+  		  UNIX_TIMESTAMP(), UNIX_TIMESTAMP(#{item.canShipDateBs}), #{item.remark}, 
+	      '1' )
+  		</foreach>
+	</insert> 	
+	<update id="updateReportPriceById">
+		UPDATE 
+			ibs_report_price
+		<set>
+			<if test="state != null">
+				state = #{state}
+			</if>
+			<if test="reportTime != null">
+				,report_time = #{reportTime}
+			</if>
+			<if test="isOperProd != null">
+				,is_oper_prod=#{isOperProd}
+			</if>
+		</set>
+		WHERE
+			id = #{id}
+		AND 
+			member_id = #{memberId}
+	</update>
+	<delete id="removeReportPriceInfoByRPIId">
+		DELETE  FROM ibs_report_price_info WHERE report_price_id=#{reportPriceId}
+	</delete>
 </mapper>

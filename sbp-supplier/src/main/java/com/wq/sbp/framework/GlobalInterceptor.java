@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.wq.sbp.common.constants.Constants;
 import com.wq.sbp.common.util.JWTUtil;
 import com.wq.sbp.model.ResultType;
-import com.wq.sbp.model.ReturnPojo;
+import com.wq.sbp.model.ReturnVO;
 
 public class GlobalInterceptor extends HandlerInterceptorAdapter {
 
@@ -35,7 +35,7 @@ public class GlobalInterceptor extends HandlerInterceptorAdapter {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json; charset=utf-8");
             PrintWriter pw = response.getWriter();
-            ReturnPojo rp = new ReturnPojo(ResultType.LOGIN_EXPIRED);
+            ReturnVO rp = new ReturnVO(ResultType.LOGIN_EXPIRED);
             pw.append(JSON.toJSONString(rp));
             return false;
         }

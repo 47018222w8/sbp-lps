@@ -6,7 +6,7 @@ import java.util.List;
  * IbsInsurance 实体类
  * 2017-08-22
  */
-public class Insurance {
+public class InsuranceDO {
 
     // id
     private Integer id;
@@ -82,7 +82,7 @@ public class Insurance {
     // 微信提醒可用次数
     private String wxCount;
 
-    List<InsuranceInfo> list;
+    List<InsuranceInfoDO> list;
 
     private String parm1;
 
@@ -101,6 +101,16 @@ public class Insurance {
     private String frontImg;
 
     private String rearImg;
+
+    List<ReportPriceDO> listRP;
+
+    public List<ReportPriceDO> getListRP() {
+        return listRP;
+    }
+
+    public void setListRP(List<ReportPriceDO> listRP) {
+        this.listRP = listRP;
+    }
 
     public String getDriveLicense() {
         return driveLicense;
@@ -374,11 +384,11 @@ public class Insurance {
         this.wxCount = wxCount;
     }
 
-    public List<InsuranceInfo> getList() {
+    public List<InsuranceInfoDO> getList() {
         return list;
     }
 
-    public void setList(List<InsuranceInfo> list) {
+    public void setList(List<InsuranceInfoDO> list) {
         this.list = list;
     }
 

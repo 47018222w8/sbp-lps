@@ -27,7 +27,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.wq.sbp.Application;
 import com.wq.sbp.common.constants.Constants;
 import com.wq.sbp.dao.MemberDao;
-import com.wq.sbp.model.Member;
+import com.wq.sbp.model.MemberDO;
 
 @RunWith(SpringJUnit4ClassRunner.class)// 自动创建spring应用的上下文
 @SpringBootTest(classes = Application.class)
@@ -57,7 +57,7 @@ public class TestWeb {
 
     @Test
     public void testDao() {
-        Assert.assertNotNull(memberDao.selectMemberByPwd(new Member()));
+        Assert.assertNotNull(memberDao.getMemberByPwd(new MemberDO()));
     }
 
     @Test

@@ -14,7 +14,7 @@ import com.wq.sbp.common.constants.Constants;
  * IbsReportPrice 实体类
  * 2017-08-31
  */
-public class ReportPrice {
+public class ReportPriceDO {
 
     // 这家伙很懒,没有留下注释
     private Integer id;
@@ -58,6 +58,8 @@ public class ReportPrice {
     // 部件名称
     private String name;
 
+    private List<ReportPriceInfoDO> listRPI;
+
     private List<Map<String, Object>> groupSrc;
 
     public List<Map<String, Object>> getGroupSrc() {
@@ -77,6 +79,14 @@ public class ReportPrice {
 
     public Integer getId() {
         return id;
+    }
+
+    public List<ReportPriceInfoDO> getListRPI() {
+        return listRPI;
+    }
+
+    public void setListRPI(List<ReportPriceInfoDO> listRPI) {
+        this.listRPI = listRPI;
     }
 
     public String getConcatSrc() {

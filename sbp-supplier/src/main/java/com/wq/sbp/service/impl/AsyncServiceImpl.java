@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.wq.sbp.common.constants.Constants;
 import com.wq.sbp.dao.PropertyDao;
-import com.wq.sbp.model.Property;
+import com.wq.sbp.model.PropertyDO;
 import com.wq.sbp.service.AsyncService;
 
 @Service
@@ -25,10 +25,10 @@ public class AsyncServiceImpl implements AsyncService {
 
     @Override
     public void cacheQualityProperty() {
-        List<Property> propertys = propertyDao.selectPropertyChildListByCode("ljpz");
-        List<Property> ps = new ArrayList<Property>();
-        for (Property p : propertys) {
-            List<Property> sons = propertyDao.selectPropertyChildListByCode(p.getPropertyCode());
+        List<PropertyDO> propertys = propertyDao.listPropertyChildListByCode("ljpz");
+        List<PropertyDO> ps = new ArrayList<PropertyDO>();
+        for (PropertyDO p : propertys) {
+            List<PropertyDO> sons = propertyDao.listPropertyChildListByCode(p.getPropertyCode());
             if (sons != null && sons.size() > 0) {
                 ps.addAll(sons);
             }

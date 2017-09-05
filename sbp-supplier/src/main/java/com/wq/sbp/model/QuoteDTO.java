@@ -9,7 +9,7 @@ import java.util.List;
  * @author zwq
  * @since 2017年8月22日
  */
-public class Quote {
+public class QuoteDTO {
 
     private String carBrandName;
 

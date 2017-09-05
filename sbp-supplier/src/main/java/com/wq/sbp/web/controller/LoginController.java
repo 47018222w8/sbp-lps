@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wq.sbp.model.Member;
-import com.wq.sbp.model.ReturnPojo;
+import com.wq.sbp.model.MemberDO;
+import com.wq.sbp.model.ReturnVO;
 import com.wq.sbp.service.LoginServie;
 
 @RestController
@@ -27,7 +27,7 @@ public class LoginController {
      * @since 2017年8月18日
      */
     @PostMapping("/validate")
-    public ReturnPojo login(@RequestBody Member member) {
+    public ReturnVO login(@RequestBody MemberDO member) {
         return loginServie.login(member);
     }
 }
