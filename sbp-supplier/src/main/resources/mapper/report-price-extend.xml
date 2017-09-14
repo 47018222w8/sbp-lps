@@ -10,6 +10,7 @@
 			) AS src,
 			ii.car_mark title,
 			irpe.ins_id insId,
+			DATE_FORMAT(irpe.create_date,'%Y-%m-%d' ) askTimeStr,
 			(
 				SELECT
 					COUNT(*)
@@ -37,6 +38,8 @@
 			irpe.supplier_member_id = #{supplierMemberId}
 		AND
 			irpe.report_state=0
+		AND 
+			irpe.quote_deadline>NOW()
 		ORDER BY
 			irpe.id DESC
  	</select>
@@ -50,6 +53,12 @@
 			</if>
 			<if test="gmtQuote != null">
 				,gmt_quote = #{gmtQuote}
+			</if>
+			<if test="expressMoney != null">
+				,express_money = #{expressMoney}
+			</if>
+			<if test="taxRate != null">
+				,tax_rate = #{taxRate}
 			</if>		
 		WHERE
 			ins_id = #{insId}

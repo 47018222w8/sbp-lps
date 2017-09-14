@@ -2,6 +2,7 @@ package com.wq.sbp.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * IbsReportPriceExtend 实体类
@@ -72,6 +73,16 @@ public class ReportPriceExtendDO {
     private String param1;
 
     private String param2;
+
+    List<ReportPriceDO> listRP;
+
+    public List<ReportPriceDO> getListRP() {
+        return listRP;
+    }
+
+    public void setListRP(List<ReportPriceDO> listRP) {
+        this.listRP = listRP;
+    }
 
     public String getParam1() {
         return param1;

@@ -54,62 +54,66 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
-    public JSONObject getQuoteInfo(ReportPriceDO rp, InsuranceDO insurance) {
+    public ReturnVO getQuoteInfo(ReportPriceDO rp, InsuranceDO insurance) {
         JSONObject jo = new JSONObject();
         insurance.setParm1(Constants.DOMAIN);
+        rp.setState("0");
+        List<ReportPriceDO> list = reportPriceDao.listInsuranceInfoByInsIdAndSupId(rp);
+        if (list == null || list.isEmpty()) {
+            return new ReturnVO(ResultType.REPORT_PRICE_NULL);
+        }
         jo.put("ins", insuranceDao.getInsuranceById(insurance));
-        jo.put("insInfoList", reportPriceDao.listInsuranceInfoByInsIdAndSupId(rp));
+        jo.put("insInfoList", list);
         jo.put("qualityList", JSON.parseArray(redisTemplate.opsForValue().get(Constants.CACHE_QUALITY_PROPERTY)));
-        return jo;
+        return new ReturnVO(ResultType.SUCCESS,jo);
     }
 
     @Override
     @Transactional
-    public ReturnVO saveQuote(InsuranceDO insurance,Integer memberId)  {
-        //report_price
-        List<ReportPriceDO> listRP=insurance.getListRP();
-        //report_price_extend
-        ReportPriceExtendDO rpe=new ReportPriceExtendDO();
+    public ReturnVO saveQuote(ReportPriceExtendDO rpe, Integer memberId) {
+        // report_price
+        List<ReportPriceDO> listRP = rpe.getListRP();
+        // report_price_extend
         rpe.setSupplierMemberId(memberId);
-        rpe.setInsId(insurance.getId());
+        rpe.setInsId(rpe.getInsId());
         rpe.setReportState(1);
         rpe.setGmtQuote(new Date());
-        //ins
-        InsuranceDO ins=new InsuranceDO();
+        // ins
+        InsuranceDO ins = new InsuranceDO();
         ins.setReportState("2");
-        ins.setId(insurance.getId());
-        insurance.setRepairId(memberId);
-        //report_price_info
-        List<ReportPriceInfoDO> listRPI=new LinkedList<>();
-        Long reportTime=System.currentTimeMillis()/1000;
-        for(ReportPriceDO rp:listRP){
+        ins.setId(rpe.getInsId());
+        // report_price_info
+        List<ReportPriceInfoDO> listRPI = new LinkedList<>();
+        Long reportTime = System.currentTimeMillis() / 1000;
+        for (ReportPriceDO rp : listRP) {
             rp.setMemberId(memberId);
             rp.setReportTime(reportTime);
-            if("0".equals(rp.getIsOperProd())){
+            if ("0".equals(rp.getIsOperProd())) {
                 rp.setState("2");
-                for(ReportPriceInfoDO rpi:rp.getListRPI()){
+                for (ReportPriceInfoDO rpi : rp.getListRPI()) {
                     rpi.setReportState(2);
                     rpi.setReportPriceId(rp.getId());
-                    rpi.setCanShipDateBs(rpi.getCanShipDateBsStr()+":00:00");
+                    rpi.setCanShipDateBs(rpi.getCanShipDateBsStr() + ":00:00");
                     listRPI.add(rpi);
                 }
-            }else{
+            }
+            else {
                 rp.setState("5");
             }
-            
-            int rpCount=reportPriceDao.updateReportPriceById(rp);
-            if(rpCount==0){
-                throw new NotOwnInfoException("试图修改非自己信息的选项,memberId:"+memberId);
+
+            int rpCount = reportPriceDao.updateReportPriceById(rp);
+            if (rpCount == 0) {
+                throw new NotOwnInfoException("试图修改非自己信息的选项,memberId:" + memberId);
             }
-            reportPriceDao.removeReportPriceInfoByRPIId(rp.getId());//旧数据删除干净后可去除
+            reportPriceDao.removeReportPriceInfoByRPIId(rp.getId());// 旧数据删除干净后可去除
         }
-        
-        int rpeCount=reportPriceExtendDao.updateReportPriceExtendSelective(rpe);
+
+        int rpeCount = reportPriceExtendDao.updateReportPriceExtendSelective(rpe);
         insuranceDao.updateInsuranceSelective(ins);
-        if(rpeCount==0){
-            throw new NotOwnInfoException("试图修改非自己信息的选项,memberId:"+memberId);
+        if (rpeCount == 0) {
+            throw new NotOwnInfoException("试图修改非自己信息的选项,memberId:" + memberId);
         }
-        if(!listRPI.isEmpty()){
+        if (!listRPI.isEmpty()) {
             reportPriceDao.saveReportPriceInfo(listRPI);
         }
         return new ReturnVO(ResultType.SUCCESS);

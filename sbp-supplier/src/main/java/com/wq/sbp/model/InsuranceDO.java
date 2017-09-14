@@ -102,16 +102,6 @@ public class InsuranceDO {
 
     private String rearImg;
 
-    List<ReportPriceDO> listRP;
-
-    public List<ReportPriceDO> getListRP() {
-        return listRP;
-    }
-
-    public void setListRP(List<ReportPriceDO> listRP) {
-        this.listRP = listRP;
-    }
-
     public String getDriveLicense() {
         return driveLicense;
     }

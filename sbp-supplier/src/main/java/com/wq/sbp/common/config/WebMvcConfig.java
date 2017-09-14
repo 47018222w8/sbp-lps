@@ -87,7 +87,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new GlobalInterceptor()).addPathPatterns("/**").excludePathPatterns("/api/1.0/LPS/login/**");
+        registry.addInterceptor(new GlobalInterceptor()).addPathPatterns("/api/1.0/LPS/**").excludePathPatterns("/api/1.0/LPS/login/**");
     }
 
     /**
@@ -102,7 +102,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowCredentials(false).allowedHeaders("*").maxAge(3600);
+//        registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
+//                .allowCredentials(false).allowedHeaders("*").maxAge(3600);
     }
 }

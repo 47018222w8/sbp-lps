@@ -41,15 +41,13 @@ public class QuoteController {
         ReportPriceDO rp = new ReportPriceDO();
         rp.setMemberId(memberId);
         rp.setInsId(insId);
-        ReturnVO vo = new ReturnVO(ResultType.SUCCESS);
-        vo.setData(quoteService.getQuoteInfo(rp, ins));
-        return vo;
+        return quoteService.getQuoteInfo(rp, ins);
     }
 
     @PostMapping
-    public ReturnVO saveQuote(@RequestBody InsuranceDO ins, HttpServletRequest request) {
+    public ReturnVO saveQuote(@RequestBody ReportPriceExtendDO rpe, HttpServletRequest request) {
         Integer memberId = (Integer) request.getAttribute("memberId");
-        ReturnVO vo = quoteService.saveQuote(ins, memberId);
+        ReturnVO vo = quoteService.saveQuote(rpe, memberId);
         return vo;
     }
 }

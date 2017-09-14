@@ -33,6 +33,10 @@ public enum ResultType {
                          */
                         SUP_NULL(5, "企业信息未完善"),
                         /**
+                         * 此单已报价
+                         */
+                        REPORT_PRICE_NULL(6, "此单已报价"),
+                        /**
                          * 操作成功
                          */
                         SUCCESS(200, "操作成功");

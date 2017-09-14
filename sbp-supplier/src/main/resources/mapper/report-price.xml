@@ -16,6 +16,9 @@
 		WHERE
 			irp.ins_id = #{insId}
 		AND irp.member_id = #{memberId}
+		<if test="state">
+			AND irp.state = #{state}
+		</if>
 	</select>
 	
 	<insert id="saveReportPriceInfo">

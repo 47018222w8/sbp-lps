@@ -35,6 +35,8 @@ public class QuoteDTO {
 
     private String carNo;
 
+    private String askTimeStr;
+
     // 报价状态
     private Integer state;
 
@@ -47,6 +49,14 @@ public class QuoteDTO {
     private String src;
 
     private String url;
+
+    public String getAskTimeStr() {
+        return askTimeStr;
+    }
+
+    public void setAskTimeStr(String askTimeStr) {
+        this.askTimeStr = askTimeStr;
+    }
 
     public String getVin() {
         return vin;

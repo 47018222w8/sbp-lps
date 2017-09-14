@@ -3,11 +3,10 @@ package com.wq.sbp.web.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.sbp.common.util.JWTUtil;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.wq.sbp.common.util.JWTUtil;
 
 import io.jsonwebtoken.Claims;
 

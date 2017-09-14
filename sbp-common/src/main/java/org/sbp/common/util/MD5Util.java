@@ -1,4 +1,4 @@
-package com.wq.sbp.common.util;
+package org.sbp.common.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
