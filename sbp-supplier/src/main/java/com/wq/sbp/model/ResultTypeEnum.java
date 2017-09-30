@@ -6,7 +6,7 @@ package com.wq.sbp.model;
  * @author weiyuan
  * @since 2017年6月20日
  */
-public enum ResultType {
+public enum ResultTypeEnum {
 
                         /**
                          * 操作失败
@@ -37,6 +37,10 @@ public enum ResultType {
                          */
                         REPORT_PRICE_NULL(6, "此单已报价"),
                         /**
+                         * 不属于自己的信息
+                         */
+                        NOT_OWN(7, "不属于自己的信息"),
+                        /**
                          * 操作成功
                          */
                         SUCCESS(200, "操作成功");
@@ -45,7 +49,7 @@ public enum ResultType {
 
     private String msg;
 
-    private ResultType(int code, String msg) {
+    private ResultTypeEnum(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }

@@ -2,9 +2,7 @@ package com.wq.sbp.common.config;
 
 import java.util.Properties;
 
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -24,35 +22,6 @@ import com.wq.sbp.framework.GlobalInterceptor;
 @Configuration
 @ServletComponentScan
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
-
-    /**
-     * 注册新servlet
-     *
-     * @return
-     *
-     * @author zwq
-     * @since 2017年8月10日
-     */
-    @Bean
-    public ServletRegistrationBean servletRegistrationBean() {
-        return new ServletRegistrationBean(new DruidStartViewServlet(), "/druid/*");
-    }
-
-    /**
-     * 注册新filter
-     *
-     * @return
-     *
-     * @author zwq
-     * @since 2017年8月10日
-     */
-    @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        registrationBean.setFilter(new DruidStartFilter());
-        registrationBean.setOrder(2);
-        return registrationBean;
-    }
 
     /**
      * 分页
@@ -102,7 +71,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
-//                .allowCredentials(false).allowedHeaders("*").maxAge(3600);
+        // registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE",
+        // "OPTIONS")
+        // .allowCredentials(false).allowedHeaders("*").maxAge(3600);
     }
 }

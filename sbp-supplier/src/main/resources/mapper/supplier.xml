@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wq.sbp.dao.SupplierDao">
+	<!-- 只查经营品牌集合 -->
+	<select id="listCarBrandId" resultType="int">
+		SELECT
+			car_brand_id
+		FROM
+			ibs_supplier
+		WHERE
+			member_id = #{memberId}
+		<if test="flag != null">
+			AND
+				flag = #{flag}
+		</if>
+	</select>
+	<insert id="saveSupplierList">
+		INSERT INTO
+			ibs_supplier (car_brand_id,member_id,store_id)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+			( #{item.carBrandId},#{item.memberId}, #{item.storeId} )	
+		</foreach>
+	</insert>
+	
+	<select id="listSupplier" resultType="Supplier">
+		SELECT DISTINCT
+			sup.car_brand_id carBrandId,
+			sup.store_id storeId,
+			store.store_name storeName,
+			brand.car_brand_name carBrandName,
+			REPLACE (
+				brand.brand_logo,
+				#{param2},
+				#{param1}
+			) AS carBrandLogo 
+		FROM
+			ibs_supplier sup
+		LEFT JOIN es_car_brand brand ON sup.car_brand_id = brand.car_brand_id
+		LEFT JOIN es_store store ON sup.store_id = store.store_id
+		WHERE
+			sup.member_id = #{memberId}
+		AND sup.flag = #{flag}
+	</select>
+	<update id="updateSupplier">
+		UPDATE
+			ibs_supplier
+		<set>
+			<if test="flag != null">
+				flag = #{flag}
+			</if>
+		</set>
+		WHERE
+			member_id = #{memberId}
+		<if test="carBrandIdList != null ">
+			AND
+				car_brand_id IN
+			<foreach collection="carBrandIdList" item="item" open="(" separator="," close=")">
+			 	#{item}
+			 </foreach>
+		</if>
+	</update>
+</mapper>

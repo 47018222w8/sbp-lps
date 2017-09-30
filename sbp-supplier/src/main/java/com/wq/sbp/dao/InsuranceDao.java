@@ -1,13 +1,20 @@
 package com.wq.sbp.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
-import com.wq.sbp.model.InsuranceDO;
+import com.wq.sbp.model.Insurance;
+import com.wq.sbp.model.ReportPriceExtend;
 
 @Mapper
 public interface InsuranceDao {
 
-    InsuranceDO getInsuranceById(InsuranceDO insurance);
+    List<Insurance> listInsurance(ReportPriceExtend rpe);
 
-    int updateInsuranceSelective(InsuranceDO ins);
+    Insurance getInsurance(Insurance ins);
+
+    int updateInsuranceSelective(Insurance ins);
+
+    int countInsurance(ReportPriceExtend rpe);
 }

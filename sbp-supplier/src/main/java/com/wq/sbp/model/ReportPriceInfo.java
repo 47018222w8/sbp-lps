@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * IbsReportPriceInfo 实体类
  * 2017-08-31
  */
-public class ReportPriceInfoDO {
+public class ReportPriceInfo {
 
     // 这家伙很懒,没有留下注释
     private Integer id;

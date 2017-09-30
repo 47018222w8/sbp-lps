@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * EsMember 实体类
  * 2017-08-18
  */ 
-public class MemberDO {
+public class Member {
 
 	 // 这家伙很懒,没有留下注释
 	private Integer memberId;

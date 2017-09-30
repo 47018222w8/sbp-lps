@@ -8,7 +8,7 @@ import java.util.List;
  * IbsReportPriceExtend 实体类
  * 2017-08-18
  */
-public class ReportPriceExtendDO {
+public class ReportPriceExtend {
 
     // 主键 自增序列
     private Integer id;
@@ -68,28 +68,25 @@ public class ReportPriceExtendDO {
     private String autoVoiceCount;
 
     // 是否已经查看0:否,1:是
-    private String isRead;
+    private Integer isRead;
+
+    List<ReportPrice> listRP;
+
+    // 符号0:小于1:大于
+    private Integer mark;
+
+    private String[] insReportStates;
 
     private String param1;
 
     private String param2;
 
-    List<ReportPriceDO> listRP;
-
-    public List<ReportPriceDO> getListRP() {
-        return listRP;
-    }
-
-    public void setListRP(List<ReportPriceDO> listRP) {
-        this.listRP = listRP;
-    }
-
     public String getParam1() {
         return param1;
     }
 
-    public void setParam1(String param1) {
-        this.param1 = param1;
+    public void setParam1(String parm1) {
+        this.param1 = parm1;
     }
 
     public String getParam2() {
@@ -98,6 +95,38 @@ public class ReportPriceExtendDO {
 
     public void setParam2(String param2) {
         this.param2 = param2;
+    }
+
+    public String[] getInsReportStates() {
+        return insReportStates;
+    }
+
+    public void setInsReportStates(String[] insReportStates) {
+        this.insReportStates = insReportStates;
+    }
+
+    public List<ReportPrice> getListRP() {
+        return listRP;
+    }
+
+    public Integer getMark() {
+        return mark;
+    }
+
+    public void setMark(Integer mark) {
+        this.mark = mark;
+    }
+
+    public Integer getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(Integer isRead) {
+        this.isRead = isRead;
+    }
+
+    public void setListRP(List<ReportPrice> listRP) {
+        this.listRP = listRP;
     }
 
     /**
@@ -366,17 +395,4 @@ public class ReportPriceExtendDO {
         return autoVoiceCount;
     }
 
-    /**
-     * 是否已经查看0:否,1:是
-     */
-    public void setIsRead(String isRead) {
-        this.isRead = isRead;
-    }
-
-    /**
-     * 是否已经查看0:否,1:是
-     */
-    public String getIsRead() {
-        return isRead;
-    }
 }

@@ -1,20 +1,13 @@
 package com.wq.sbp.model;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.wq.sbp.common.constants.Constants;
 
 /**
  * IbsReportPrice 实体类
  * 2017-08-31
  */
-public class ReportPriceDO {
+public class ReportPrice {
 
     // 这家伙很懒,没有留下注释
     private Integer id;
@@ -52,49 +45,71 @@ public class ReportPriceDO {
     // 是否经营该产品（0: 经营 1:不经营 ， 默认是0 ）
     private String isOperProd;
 
-    // concat 5张零件图
-    private String concatSrc;
+    private String img;
+
+    private String img1;
+
+    private String img2;
+
+    private String img3;
+
+    private String img4;
 
     // 部件名称
     private String name;
 
-    private List<ReportPriceInfoDO> listRPI;
-
-    private List<Map<String, Object>> groupSrc;
-
-    public List<Map<String, Object>> getGroupSrc() {
-        groupSrc = new LinkedList<>();
-        if (StringUtils.isNotEmpty(concatSrc)) {
-            String[] arry = concatSrc.split(",");
-            for (String str : arry) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("src", Constants.DOMAIN + str);
-                map.put("w", 600);
-                map.put("h", 400);
-                groupSrc.add(map);
-            }
-        }
-        return groupSrc;
-    }
+    private List<ReportPriceInfo> listRPI;
 
     public Integer getId() {
         return id;
     }
 
-    public List<ReportPriceInfoDO> getListRPI() {
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getImg1() {
+        return img1;
+    }
+
+    public void setImg1(String img1) {
+        this.img1 = img1;
+    }
+
+    public String getImg2() {
+        return img2;
+    }
+
+    public void setImg2(String img2) {
+        this.img2 = img2;
+    }
+
+    public String getImg3() {
+        return img3;
+    }
+
+    public void setImg3(String img3) {
+        this.img3 = img3;
+    }
+
+    public String getImg4() {
+        return img4;
+    }
+
+    public void setImg4(String img4) {
+        this.img4 = img4;
+    }
+
+    public List<ReportPriceInfo> getListRPI() {
         return listRPI;
     }
 
-    public void setListRPI(List<ReportPriceInfoDO> listRPI) {
+    public void setListRPI(List<ReportPriceInfo> listRPI) {
         this.listRPI = listRPI;
-    }
-
-    public String getConcatSrc() {
-        return concatSrc;
-    }
-
-    public void setGroupSrc(List<Map<String, Object>> groupSrc) {
-        this.groupSrc = groupSrc;
     }
 
     public void setId(Integer id) {
@@ -187,10 +202,6 @@ public class ReportPriceDO {
 
     public void setIsOperProd(String isOperProd) {
         this.isOperProd = isOperProd;
-    }
-
-    public void setConcatSrc(String concatSrc) {
-        this.concatSrc = concatSrc;
     }
 
     public String getName() {

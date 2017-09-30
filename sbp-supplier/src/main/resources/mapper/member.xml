@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wq.sbp.dao.MemberDao">
- 	<select id="getMemberByPwd" resultType="MemberDO">
- 		SELECT
- 			member_id	memberId
- 		FROM 
- 			es_member 
- 		WHERE 
- 			uname=#{uname} 
- 		<if test="password != null">
-	 		AND 
-	 			`password`=#{password};
- 		</if>
- 	</select>
+	<select id="getMember" resultType="Member">
+		SELECT
+			member_id memberId
+		FROM
+			es_member
+		<where>
+			<if test="uname != null ">
+				uname=#{uname}
+			</if>
+			<if test="password != null">
+				AND
+				`password`=#{password}
+			</if>
+		</where>
+	</select>
 </mapper>

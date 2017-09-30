@@ -28,10 +28,10 @@ import org.junit.Test;
  */
 public class CreateBean {
 
-    private String tablename = "ibs_report_price_info";
+    private String tablename = "t_supplier_car_part";
 
     // 不写默认为驼峰
-    private String modelName = "ReportPriceInfo";
+    private String modelName = "SupplierCarPart";
 
     private String modelOutPath = "com.wq.sbp.model";
 
@@ -48,6 +48,7 @@ public class CreateBean {
     private String user = "root";
 
     private String pwd = "123456";
+
     @Test
     public void test1() {
         CreateBean createBean = new CreateBean();
@@ -239,10 +240,6 @@ public class CreateBean {
 
         str = new String(charArry).replace("_", "");
         return str;
-    }
-
-    @Test
-    public void testInitcap() {
     }
 
     /**

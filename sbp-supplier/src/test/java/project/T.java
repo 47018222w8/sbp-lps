@@ -1,22 +1,23 @@
 package project;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.Test;
-import org.sbp.common.util.JWTUtil;
 
-import io.jsonwebtoken.Claims;
+import com.wq.sbp.model.ErrorEnum;
 
 public class T {
     @Test
     public void test(){
-        Timestamp stamp = new Timestamp(new Date().getTime());
-        System.out.println(stamp);
+        List<Integer> a=new LinkedList<>();
+        a.add(1);
+        a.add(2);
+        List<Integer> b=new LinkedList<>();
+        b.add(2);
+        b.add(3);
     }
-    public static void main(String[] args) {
-        String token="eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE1MDQ0ODY2MDQsIm1lbWJlcklkIjo0NDV9.CirDHxQvJa_XuF8oM2jD52ctxy88ILLrOUfeamNuZ30f4hGilVVXXWrAsf3RJcaC1w_jVnTjIfh9ITGvBZ1k9Q";
-        Claims c=JWTUtil.getClaimsFromToken(token);
-        System.out.println(c.get("memberId"));
+    @Test
+    public void test1(){
     }
 }

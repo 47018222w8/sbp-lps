@@ -2,13 +2,7 @@ package com.wq.sbp.model;
 
 import java.io.Serializable;
 
-/**
- * 
- *
- * @author weiyuan
- * @since 2017年6月20日
- */
-public class ReturnVO implements Serializable {
+public class ResultVO implements Serializable {
 
     private static final long serialVersionUID = -8130588879304354948L;
 
@@ -18,30 +12,30 @@ public class ReturnVO implements Serializable {
 
     private Object data;
 
-    public ReturnVO() {
+    public ResultVO() {
     }
 
-    public ReturnVO(ResultType rt) {
+    public ResultVO(ResultTypeEnum rt) {
         this.code = rt.getCode();
         this.msg = rt.getMsg();
     }
 
-    public ReturnVO(ResultType rt, Object data) {
+    public ResultVO(ResultTypeEnum rt, Object data) {
         this.code = rt.getCode();
         this.msg = rt.getMsg();
         this.data = data;
     }
 
-    public ReturnVO(int code) {
+    public ResultVO(int code) {
         this.code = code;
     }
 
-    public ReturnVO(int code, String msg) {
+    public ResultVO(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    public ReturnVO(int code, Object data) {
+    public ResultVO(int code, Object data) {
         this.code = code;
         this.data = data;
     }

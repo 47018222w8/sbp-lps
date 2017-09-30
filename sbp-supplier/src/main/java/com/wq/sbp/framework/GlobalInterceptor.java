@@ -13,8 +13,10 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.alibaba.fastjson.JSON;
 import com.wq.sbp.common.constants.Constants;
-import com.wq.sbp.model.ResultType;
-import com.wq.sbp.model.ReturnVO;
+import com.wq.sbp.model.ErrorEnum;
+import com.wq.sbp.model.ErrorVO;
+import com.wq.sbp.model.ResultTypeEnum;
+import com.wq.sbp.model.ResultVO;
 
 public class GlobalInterceptor extends HandlerInterceptorAdapter {
 
@@ -34,9 +36,9 @@ public class GlobalInterceptor extends HandlerInterceptorAdapter {
             logger.error("解析token", e);
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json; charset=utf-8");
+            response.setStatus(ErrorEnum.AUTHORIZATION_EXPIRED.getHttpStatusCode());
             PrintWriter pw = response.getWriter();
-            ReturnVO rp = new ReturnVO(ResultType.LOGIN_EXPIRED);
-            pw.append(JSON.toJSONString(rp));
+            pw.append(JSON.toJSONString(new ErrorVO(ErrorEnum.AUTHORIZATION_EXPIRED)));
             return false;
         }
         return true;

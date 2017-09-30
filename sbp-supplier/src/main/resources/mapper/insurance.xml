@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wq.sbp.dao.InsuranceDao">
- 	<select id="getInsuranceById" resultType="InsuranceDO">
+ 	<select id="getInsurance" resultType="Insurance">
  		SELECT
 			ii.car_mark 			carMark,
 			ecb.car_brand_name		carBrandName,
@@ -12,20 +12,112 @@
 			ii.vin,
 			ii.is_invoice			invoice,
 			ii.car_no 				carNo,
-			ai.drive_license		driveLicense,
-			CONCAT(#{parm1},ai.rear_img)	rearImg,
-			CONCAT(#{parm1},ai.front_img)	frontImg,
-			CONCAT(#{parm1},ai.drive_license)	driveLicense
+			ii.rear_img				rearImg,
+			ii.front_img			frontImg,
+			ii.drive_license		driveLicense
 		FROM
 			ibs_insurance ii
 		LEFT JOIN
 		es_car_brand ecb ON ii.car_brand_id=ecb.car_brand_id
 		LEFT JOIN
 		es_ent_member eem ON ii.repair_id=eem.member_id
-		LEFT JOIN
-		t_askprice_insurance ai ON ii.id=ai.ins_id
  		WHERE ii.id=#{id}
+ 		<if test="repairId != null">
+		    AND 
+		    	ii.repair_id=#{repairId}
+	    </if>
+	    AND 
+	    	ii.flag=1
  	</select>
+ 	<select id="listInsurance" resultType="Insurance">
+ 		SELECT
+	 		REPLACE (
+					ecb.brand_logo,
+					#{param2},
+					#{param1}
+				) AS brandLogo,
+			ii.car_mark carMark,
+			ii.id,
+			irpe.is_read isRead,
+			DATE_FORMAT(irpe.create_date,'%Y-%m-%d' ) askTimeStr,
+			(
+				SELECT
+					COUNT(*)
+				FROM
+					ibs_report_price irp
+				WHERE
+					irp.ins_id = ii.id
+				AND irp.member_id =  #{supplierMemberId}
+			) partCount,
+		(SELECT
+				iii.`name`
+			FROM
+				ibs_insurance_info iii
+			INNER JOIN ibs_report_price irp ON iii.id = irp.ins_info_id
+			WHERE
+				irp.ins_id = ii.id
+			AND irp.member_id =  #{supplierMemberId}
+			AND irp.state = '0' limit 0,1) partName
+		FROM
+			ibs_insurance ii
+		LEFT JOIN ibs_report_price_extend irpe ON irpe.ins_id = ii.id
+		LEFT JOIN es_car_brand ecb ON ii.car_brand_id = ecb.car_brand_id
+		WHERE
+			irpe.supplier_member_id =  #{supplierMemberId}
+		<if test="reportState != null ">
+			AND
+				irpe.report_state=#{reportState}
+		</if>
+		<if test="mark == 0">
+			AND 
+				irpe.quote_deadline &lt; NOW()
+		</if>
+		<if test="mark == 1">
+			AND 
+				irpe.quote_deadline &gt; NOW()
+		</if>
+		<if test="insReportStates != null">
+			AND
+				ii.report_state IN 
+			<foreach collection="insReportStates" item="item" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+		ORDER BY
+			irpe.id DESC
+ 	</select>
+ 	<select id="countInsurance" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			ibs_insurance ii
+		LEFT JOIN ibs_report_price_extend irpe ON irpe.ins_id = ii.id
+		WHERE
+			irpe.supplier_member_id = #{supplierMemberId}
+		<if test="reportState != null ">
+			AND
+				irpe.report_state=#{reportState}
+		</if>
+		<if test="mark == 0">
+			AND 
+				irpe.quote_deadline &lt; NOW()
+		</if>
+		<if test="mark == 1">
+			AND 
+				irpe.quote_deadline &gt; NOW()
+		</if>
+		<if test="isRead != null">
+			AND
+				irpe.is_read=#{isRead}
+		</if>
+		<if test="insReportStates != null">
+			AND
+				ii.report_state IN 
+			<foreach collection="insReportStates" item="item" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+	</select>
  	<update id="updateInsuranceSelective">
  		UPDATE 
  			ibs_insurance

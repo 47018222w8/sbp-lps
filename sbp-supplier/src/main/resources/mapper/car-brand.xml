@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wq.sbp.dao.CarBrandDao">
+ 	<select id="listCarBrand" resultType="CarBrand">
+ 		SELECT
+			car_brand_id		`key`,
+			car_brand_id		carBrandId,
+			car_brand_name		carBrandName,
+			car_brand_name		`value`,
+			REPLACE (
+					brand_logo,
+					#{param2},
+					#{param1}
+				) AS brandLogo,
+			car_first_letter	carFirstLetter,
+			is_hot				isHost,
+			national_name		nationalName,
+			can_find_part_show	canFindPartShow,
+			askprice_is_hot		askpriceIsHot		
+		FROM
+			es_car_brand 
+		<where>
+			<if test="canFindPartShow !=null ">
+				can_find_part_show=#{canFindPartShow}
+			</if>
+			<if test="carBrandId !=null ">
+				AND car_brand_id=#{carBrandId}
+			</if>
+			<if test="carFirstLetter !=null ">
+				AND car_first_letter=#{carFirstLetter}
+			</if>
+			<if test="askpriceIsHot !=null ">
+				AND askprice_is_hot=#{askpriceIsHot}
+			</if>
+			<if test="liyangCarBrandName !=null ">
+				AND liyang_car_brand_name=#{liyangCarBrandName}
+			</if>
+			<if test="carBrandName !=null ">
+				AND car_brand_name LIKE CONCAT('%',#{carBrandName},'%')
+			</if>
+		</where>
+		ORDER BY
+			carFirstLetter
+ 	</select>
+</mapper>

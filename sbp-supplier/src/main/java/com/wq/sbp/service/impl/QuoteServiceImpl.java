@@ -6,28 +6,23 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.wq.sbp.common.constants.Constants;
 import com.wq.sbp.dao.InsuranceDao;
 import com.wq.sbp.dao.ReportPriceDao;
 import com.wq.sbp.dao.ReportPriceExtendDao;
-import com.wq.sbp.model.InsuranceDO;
-import com.wq.sbp.model.NotOwnInfoException;
-import com.wq.sbp.model.PageHelperParam;
-import com.wq.sbp.model.QuoteDTO;
-import com.wq.sbp.model.ReportPriceDO;
-import com.wq.sbp.model.ReportPriceExtendDO;
-import com.wq.sbp.model.ReportPriceInfoDO;
-import com.wq.sbp.model.ResultType;
-import com.wq.sbp.model.ReturnVO;
+import com.wq.sbp.model.Insurance;
+import com.wq.sbp.model.ReportPrice;
+import com.wq.sbp.model.ReportPriceExtend;
+import com.wq.sbp.model.ReportPriceInfo;
+import com.wq.sbp.model.ResultVO;
+import com.wq.sbp.model.ResultTypeEnum;
 import com.wq.sbp.service.QuoteService;
 
 @Service
@@ -45,53 +40,32 @@ public class QuoteServiceImpl implements QuoteService {
     @Resource
     private RedisTemplate<String, String> redisTemplate;
 
-    @Override
-    public PageInfo<QuoteDTO> listQuote(ReportPriceExtendDO rpe, PageHelperParam param) {
-        rpe.setParam1(Constants.EAUTO100_IMG_VISIT);
-        rpe.setParam2(Constants.EAUTO100_IMG_SAVE);
-        PageHelper.startPage(param.getPageNum(), param.getPageSize());
-        return new PageInfo<QuoteDTO>(reportPriceExtendDao.listQuoteListBySupId(rpe));
-    }
-
-    @Override
-    public ReturnVO getQuoteInfo(ReportPriceDO rp, InsuranceDO insurance) {
-        JSONObject jo = new JSONObject();
-        insurance.setParm1(Constants.DOMAIN);
-        rp.setState("0");
-        List<ReportPriceDO> list = reportPriceDao.listInsuranceInfoByInsIdAndSupId(rp);
-        if (list == null || list.isEmpty()) {
-            return new ReturnVO(ResultType.REPORT_PRICE_NULL);
-        }
-        jo.put("ins", insuranceDao.getInsuranceById(insurance));
-        jo.put("insInfoList", list);
-        jo.put("qualityList", JSON.parseArray(redisTemplate.opsForValue().get(Constants.CACHE_QUALITY_PROPERTY)));
-        return new ReturnVO(ResultType.SUCCESS,jo);
-    }
+    private Logger log = LoggerFactory.getLogger(QuoteServiceImpl.class);
 
     @Override
     @Transactional
-    public ReturnVO saveQuote(ReportPriceExtendDO rpe, Integer memberId) {
+    public ResultVO saveQuote(ReportPriceExtend rpe, Integer memberId) {
         // report_price
-        List<ReportPriceDO> listRP = rpe.getListRP();
+        List<ReportPrice> listRP = rpe.getListRP();
         // report_price_extend
         rpe.setSupplierMemberId(memberId);
         rpe.setInsId(rpe.getInsId());
         rpe.setReportState(1);
         rpe.setGmtQuote(new Date());
         // ins
-        InsuranceDO ins = new InsuranceDO();
+        Insurance ins = new Insurance();
         ins.setReportState("2");
         ins.setId(rpe.getInsId());
         // report_price_info
-        List<ReportPriceInfoDO> listRPI = new LinkedList<>();
+        List<ReportPriceInfo> listRPI = new LinkedList<>();
         Long reportTime = System.currentTimeMillis() / 1000;
-        for (ReportPriceDO rp : listRP) {
+        for (ReportPrice rp : listRP) {
             rp.setMemberId(memberId);
             rp.setReportTime(reportTime);
             if ("0".equals(rp.getIsOperProd())) {
                 rp.setState("2");
-                for (ReportPriceInfoDO rpi : rp.getListRPI()) {
-                    rpi.setReportState(2);
+                for (ReportPriceInfo rpi : rp.getListRPI()) {
+                    rpi.setReportState(0);
                     rpi.setReportPriceId(rp.getId());
                     rpi.setCanShipDateBs(rpi.getCanShipDateBsStr() + ":00:00");
                     listRPI.add(rpi);
@@ -103,20 +77,24 @@ public class QuoteServiceImpl implements QuoteService {
 
             int rpCount = reportPriceDao.updateReportPriceById(rp);
             if (rpCount == 0) {
-                throw new NotOwnInfoException("试图修改非自己信息的选项,memberId:" + memberId);
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                log.error("试图修改非自己信息的选项,memberId:" + memberId);
+                return new ResultVO(ResultTypeEnum.NOT_OWN);
             }
             reportPriceDao.removeReportPriceInfoByRPIId(rp.getId());// 旧数据删除干净后可去除
         }
 
-        int rpeCount = reportPriceExtendDao.updateReportPriceExtendSelective(rpe);
+        int rpeCount = reportPriceExtendDao.updateReportPriceExtend(rpe);
         insuranceDao.updateInsuranceSelective(ins);
         if (rpeCount == 0) {
-            throw new NotOwnInfoException("试图修改非自己信息的选项,memberId:" + memberId);
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            log.error("试图修改非自己信息的选项,memberId:" + memberId);
+            return new ResultVO(ResultTypeEnum.NOT_OWN);
         }
         if (!listRPI.isEmpty()) {
             reportPriceDao.saveReportPriceInfo(listRPI);
         }
-        return new ReturnVO(ResultType.SUCCESS);
+        return new ResultVO(ResultTypeEnum.SUCCESS);
     }
 
 }

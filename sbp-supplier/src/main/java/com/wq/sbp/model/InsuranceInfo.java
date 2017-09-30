@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * IbsInsuranceInfo 实体类
  * 2017-08-22
  */
-public class InsuranceInfoDO {
+public class InsuranceInfo {
 
     // id
     private String id;

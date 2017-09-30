@@ -5,7 +5,7 @@ import java.util.Date;
  * TProperty 实体类
  * 2017-08-28
  */ 
-public class PropertyDO {
+public class Property {
 
 	 // 子属性ID
 	private Integer id;

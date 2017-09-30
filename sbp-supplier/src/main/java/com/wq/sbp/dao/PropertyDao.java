@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.wq.sbp.model.PropertyDO;
+import com.wq.sbp.model.Property;
 
 @Mapper
 public interface PropertyDao {
 
-    List<PropertyDO> listPropertyChildListByCode(String code);
+    List<Property> listPropertyChildByCode(String code);
 }

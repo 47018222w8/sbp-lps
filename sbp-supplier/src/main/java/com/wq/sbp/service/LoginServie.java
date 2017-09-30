@@ -1,8 +1,15 @@
 package com.wq.sbp.service;
 
-import com.wq.sbp.model.MemberDO;
-import com.wq.sbp.model.ReturnVO;
+import com.wq.sbp.model.Member;
+import com.wq.sbp.model.ResultVO;
 
+/**
+ * 登录业务处理,只返回result
+ *
+ *
+ * @author zwq
+ * @since 2017年9月19日
+ */
 public interface LoginServie {
 
     /**
@@ -14,5 +21,5 @@ public interface LoginServie {
      * @author zwq
      * @since 2017年8月18日
      */
-    ReturnVO login(MemberDO member);
+    ResultVO login(Member member);
 }

@@ -6,7 +6,7 @@ import java.util.List;
  * IbsInsurance 实体类
  * 2017-08-22
  */
-public class InsuranceDO {
+public class Insurance {
 
     // id
     private Integer id;
@@ -82,7 +82,7 @@ public class InsuranceDO {
     // 微信提醒可用次数
     private String wxCount;
 
-    List<InsuranceInfoDO> list;
+    List<InsuranceInfo> list;
 
     private String parm1;
 
@@ -101,6 +101,66 @@ public class InsuranceDO {
     private String frontImg;
 
     private String rearImg;
+
+    private String domain;
+
+    private int partCount;
+
+    private String partName;
+
+    private String brandLogo;
+
+    private Integer isRead;
+
+    private String askTimeStr;
+
+    public String getAskTimeStr() {
+        return askTimeStr;
+    }
+
+    public void setAskTimeStr(String askTimeStr) {
+        this.askTimeStr = askTimeStr;
+    }
+
+    public Integer getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(Integer isRead) {
+        this.isRead = isRead;
+    }
+
+    public String getBrandLogo() {
+        return brandLogo;
+    }
+
+    public void setBrandLogo(String brandLogo) {
+        this.brandLogo = brandLogo;
+    }
+
+    public int getPartCount() {
+        return partCount;
+    }
+
+    public void setPartCount(int partCount) {
+        this.partCount = partCount;
+    }
+
+    public String getPartName() {
+        return partName;
+    }
+
+    public void setPartName(String partName) {
+        this.partName = partName;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
 
     public String getDriveLicense() {
         return driveLicense;
@@ -374,11 +434,11 @@ public class InsuranceDO {
         this.wxCount = wxCount;
     }
 
-    public List<InsuranceInfoDO> getList() {
+    public List<InsuranceInfo> getList() {
         return list;
     }
 
-    public void setList(List<InsuranceInfoDO> list) {
+    public void setList(List<InsuranceInfo> list) {
         this.list = list;
     }
 

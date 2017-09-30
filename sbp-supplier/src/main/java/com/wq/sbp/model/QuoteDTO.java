@@ -2,6 +2,8 @@ package com.wq.sbp.model;
 
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
+
 /**
  * 报价展示的各种数据
  *
@@ -11,187 +13,65 @@ import java.util.List;
  */
 public class QuoteDTO {
 
-    private String carBrandName;
+    // 静态资源前缀
+    private String domain;
 
-    private String carBrandLogo;
+    private PageInfo<Insurance> insurancePage;
+    // 未读询价单数
+    private int notReadCount;
 
-    private List<String> carpartList;
+    private Insurance ins;
 
-    private Integer insId;
+    private List<ReportPrice> reportPriceList;
 
-    private int count;
+    private List<Property> qualityList;
 
-    private String name;
-
-    private Integer insInfoId;
-
-    private String carMark;
-
-    private String vin;
-
-    private String invoice;
-
-    private String arriveTime;
-
-    private String carNo;
-
-    private String askTimeStr;
-
-    // 报价状态
-    private Integer state;
-
-    // vux中需要的名称,自行查找
-    private String title;
-
-    @SuppressWarnings("unused")
-    private String desc;
-
-    private String src;
-
-    private String url;
-
-    public String getAskTimeStr() {
-        return askTimeStr;
+    public List<ReportPrice> getReportPriceList() {
+        return reportPriceList;
     }
 
-    public void setAskTimeStr(String askTimeStr) {
-        this.askTimeStr = askTimeStr;
+    public void setReportPriceList(List<ReportPrice> reportPriceList) {
+        this.reportPriceList = reportPriceList;
     }
 
-    public String getVin() {
-        return vin;
+    public List<Property> getQualityList() {
+        return qualityList;
     }
 
-    public void setVin(String vin) {
-        this.vin = vin;
+    public void setQualityList(List<Property> qualityList) {
+        this.qualityList = qualityList;
     }
 
-    public String getInvoice() {
-        return invoice;
+    public Insurance getIns() {
+        return ins;
     }
 
-    public void setInvoice(String invoice) {
-        this.invoice = invoice;
+    public void setIns(Insurance ins) {
+        this.ins = ins;
     }
 
-    public String getArriveTime() {
-        return arriveTime;
+    public String getDomain() {
+        return domain;
     }
 
-    public void setArriveTime(String arriveTime) {
-        this.arriveTime = arriveTime;
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
-    public String getCarNo() {
-        return carNo;
+    public PageInfo<Insurance> getInsurancePage() {
+        return insurancePage;
     }
 
-    public void setCarNo(String carNo) {
-        this.carNo = carNo;
+    public void setInsurancePage(PageInfo<Insurance> insurancePage) {
+        this.insurancePage = insurancePage;
     }
 
-    public String getCarMark() {
-        return carMark;
+    public int getNotReadCount() {
+        return notReadCount;
     }
 
-    public void setCarMark(String carMark) {
-        this.carMark = carMark;
-    }
-
-    public Integer getInsInfoId() {
-        return insInfoId;
-    }
-
-    public void setInsInfoId(Integer insInfoId) {
-        this.insInfoId = insInfoId;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    public String getDesc() {
-        return name + "等" + count + "个零件";
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public String getSrc() {
-        return src;
-    }
-
-    public void setSrc(String src) {
-        this.src = src;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getCarBrandName() {
-        return carBrandName;
-    }
-
-    public void setCarBrandName(String carBrandName) {
-        this.carBrandName = carBrandName;
-    }
-
-    public String getCarBrandLogo() {
-        return carBrandLogo;
-    }
-
-    public void setCarBrandLogo(String carBrandLogo) {
-        this.carBrandLogo = carBrandLogo;
-    }
-
-    public List<String> getCarpartList() {
-        return carpartList;
-    }
-
-    public void setCarpartList(List<String> carpartList) {
-        this.carpartList = carpartList;
-    }
-
-    public Integer getInsId() {
-        return insId;
-    }
-
-    public void setInsId(Integer insId) {
-        this.insId = insId;
+    public void setNotReadCount(int notReadCount) {
+        this.notReadCount = notReadCount;
     }
 
 }

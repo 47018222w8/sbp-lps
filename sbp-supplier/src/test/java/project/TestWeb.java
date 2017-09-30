@@ -27,7 +27,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.wq.sbp.Application;
 import com.wq.sbp.common.constants.Constants;
 import com.wq.sbp.dao.MemberDao;
-import com.wq.sbp.model.MemberDO;
+import com.wq.sbp.model.Member;
 
 @RunWith(SpringJUnit4ClassRunner.class)// 自动创建spring应用的上下文
 @SpringBootTest(classes = Application.class)
@@ -57,44 +57,15 @@ public class TestWeb {
 
     @Test
     public void testDao() {
-        Assert.assertNotNull(memberDao.getMemberByPwd(new MemberDO()));
+        Assert.assertNotNull(memberDao.getMember(new Member()));
     }
 
-    @Test
-    public void testLogin() throws Exception {
-        MvcResult result = mockMvc.perform(post("/api/1.0/LPS/login/validate").param("uname", "众联安顺").param("password", "666666"))
-                .andExpect(status().isOk()).andExpect(jsonPath("$.code").value(200)).andReturn();
-        JSONObject jo = JSON.parseObject(result.getResponse().getContentAsString());
-        token = jo.getString("data");
-    }
+//    @Test
+//    public void testLogin() throws Exception {
+//        MvcResult result = mockMvc.perform(post("/api/1.0/LPS/login/validate").param("uname", "众联安顺").param("password", "666666"))
+//                .andExpect(status().isOk()).andExpect(jsonPath("$.code").value(200)).andReturn();
+//        JSONObject jo = JSON.parseObject(result.getResponse().getContentAsString());
+//        token = jo.getString("data");
+//    }
 
-    @Test
-    public void testDoctorList() throws Exception {
-        mockMvc.perform(get("/api/1.0/LPS/quote/list").param("supplierMemberId", "445")).andExpect(status().isOk())
-                .andExpect(jsonPath("$.code").value(200)).andReturn();
-    }
-    @Test
-    public void testQuoteInfoGet() throws Exception {
-        testLogin();
-        mockMvc.perform(get("/api/1.0/LPS/quote/info/754").header(Constants.JWT_HEADER, token)).andExpect(status().isOk())
-                .andExpect(jsonPath("$.code").value(200)).andReturn();
-    }
-    @Test
-    public void testDoctorGet() throws Exception {
-        testLogin();
-        mockMvc.perform(get("/v1/doctor/1").header(Constants.JWT_HEADER, token)).andExpect(status().isOk())
-                .andExpect(jsonPath("$.code").value(200)).andReturn();
-    }
-
-    @Test
-    public void testModifyDoctor() throws Exception {
-        mockMvc.perform(put("/v1/doctor").param("name", "e").param("id", "1")).andExpect(status().isOk())
-                .andExpect(jsonPath("$.code").value(200)).andReturn();
-    }
-
-    @Test
-    public void testAddDoctor() throws Exception {
-        mockMvc.perform(post("/v1/doctor").param("name", "w")).andExpect(status().isOk()).andExpect(jsonPath("$.code").value(200))
-                .andReturn();
-    }
 }
