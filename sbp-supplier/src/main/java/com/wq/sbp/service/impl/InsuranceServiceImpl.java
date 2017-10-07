@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wq.sbp.common.constants.Constants;
 import com.wq.sbp.dao.InsuranceDao;
 import com.wq.sbp.model.Insurance;
 import com.wq.sbp.model.PageHelperParam;
@@ -24,6 +25,8 @@ public class InsuranceServiceImpl implements InsuranceService {
 
     @Override
     public PageInfo<Insurance> listInsurance(ReportPriceExtend rpe, PageHelperParam param) {
+        rpe.setParam1(Constants.EAUTO100_IMG_VISIT);
+        rpe.setParam2(Constants.EAUTO100_IMG_SAVE);
         PageHelper.startPage(param.getPageNum(), param.getPageSize());
         return new PageInfo<>(insuranceDao.listInsurance(rpe));
     }

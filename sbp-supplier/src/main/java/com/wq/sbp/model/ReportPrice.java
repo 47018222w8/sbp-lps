@@ -196,10 +196,28 @@ public class ReportPrice {
         this.targetPrice = targetPrice;
     }
 
+    /**
+     * 是否经营该产品（0: 经营 1:不经营 ， 默认是0 ）
+     * 
+     *
+     * @return
+     *
+     * @author zwq
+     * @since 2017年10月6日
+     */
     public String getIsOperProd() {
         return isOperProd;
     }
 
+    /**
+     * 是否经营该产品（0: 经营 1:不经营 ， 默认是0 ）
+     * 
+     *
+     * @return
+     *
+     * @author zwq
+     * @since 2017年10月6日
+     */
     public void setIsOperProd(String isOperProd) {
         this.isOperProd = isOperProd;
     }

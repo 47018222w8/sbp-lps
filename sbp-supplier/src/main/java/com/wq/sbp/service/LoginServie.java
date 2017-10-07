@@ -1,7 +1,8 @@
 package com.wq.sbp.service;
 
+import org.springframework.http.ResponseEntity;
+
 import com.wq.sbp.model.Member;
-import com.wq.sbp.model.ResultVO;
 
 /**
  * 登录业务处理,只返回result
@@ -21,5 +22,5 @@ public interface LoginServie {
      * @author zwq
      * @since 2017年8月18日
      */
-    ResultVO login(Member member);
+    ResponseEntity<?> login(Member member);
 }

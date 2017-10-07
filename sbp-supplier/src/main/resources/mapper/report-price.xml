@@ -20,7 +20,7 @@
 		WHERE
 			irp.ins_id = #{insId}
 		AND irp.member_id = #{memberId}
-		<if test="state">
+		<if test="state != null">
 			AND irp.state = #{state}
 		</if>
 	</select>

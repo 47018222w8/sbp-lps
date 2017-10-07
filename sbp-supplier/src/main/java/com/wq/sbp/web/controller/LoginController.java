@@ -1,17 +1,17 @@
 package com.wq.sbp.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wq.sbp.model.Member;
-import com.wq.sbp.model.ResultVO;
 import com.wq.sbp.service.LoginServie;
 
 @RestController
-@RequestMapping("/api/1.0/LPS/login")
+@RequestMapping("/v1")
 public class LoginController {
 
     @Autowired
@@ -26,8 +26,8 @@ public class LoginController {
      * @author zwq
      * @since 2017年8月18日
      */
-    @PostMapping("/validate")
-    public ResultVO login(@RequestBody Member member) {
+    @PostMapping("/session")
+    public ResponseEntity<?> login(@RequestBody Member member) {
         return loginServie.login(member);
     }
 }

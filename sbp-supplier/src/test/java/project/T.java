@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.wq.sbp.model.ErrorEnum;
-
 public class T {
     @Test
     public void test(){

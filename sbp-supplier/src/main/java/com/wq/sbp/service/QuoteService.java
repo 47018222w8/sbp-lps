@@ -1,7 +1,8 @@
 package com.wq.sbp.service;
 
+import org.springframework.http.ResponseEntity;
+
 import com.wq.sbp.model.ReportPriceExtend;
-import com.wq.sbp.model.ResultVO;
 
 /**
  * 报价相关业务
@@ -12,5 +13,5 @@ import com.wq.sbp.model.ResultVO;
  */
 public interface QuoteService {
 
-    ResultVO saveQuote(ReportPriceExtend rpe, Integer memberId);
+    ResponseEntity<?> saveQuote(ReportPriceExtend rpe);
 }

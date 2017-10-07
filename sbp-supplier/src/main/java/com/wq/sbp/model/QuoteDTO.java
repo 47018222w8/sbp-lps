@@ -16,7 +16,9 @@ public class QuoteDTO {
     // 静态资源前缀
     private String domain;
 
+    // 主表列表
     private PageInfo<Insurance> insurancePage;
+
     // 未读询价单数
     private int notReadCount;
 

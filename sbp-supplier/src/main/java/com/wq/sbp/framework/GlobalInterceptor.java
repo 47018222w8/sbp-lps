@@ -15,8 +15,6 @@ import com.alibaba.fastjson.JSON;
 import com.wq.sbp.common.constants.Constants;
 import com.wq.sbp.model.ErrorEnum;
 import com.wq.sbp.model.ErrorVO;
-import com.wq.sbp.model.ResultTypeEnum;
-import com.wq.sbp.model.ResultVO;
 
 public class GlobalInterceptor extends HandlerInterceptorAdapter {
 
