@@ -8,8 +8,7 @@ import com.github.pagehelper.PageInfo;
 import com.wq.sbp.common.constants.Constants;
 import com.wq.sbp.dao.InsuranceDao;
 import com.wq.sbp.model.Insurance;
-import com.wq.sbp.model.PageHelperParam;
-import com.wq.sbp.model.ReportPriceExtend;
+import com.wq.sbp.model.InsurancePageParam;
 import com.wq.sbp.service.InsuranceService;
 
 @Service
@@ -24,16 +23,16 @@ public class InsuranceServiceImpl implements InsuranceService {
     }
 
     @Override
-    public PageInfo<Insurance> listInsurance(ReportPriceExtend rpe, PageHelperParam param) {
-        rpe.setParam1(Constants.EAUTO100_IMG_VISIT);
-        rpe.setParam2(Constants.EAUTO100_IMG_SAVE);
-        PageHelper.startPage(param.getPageNum(), param.getPageSize());
-        return new PageInfo<>(insuranceDao.listInsurance(rpe));
+    public PageInfo<Insurance> listInsurance(InsurancePageParam ipp) {
+        ipp.setParam1(Constants.EAUTO100_IMG_VISIT);
+        ipp.setParam2(Constants.EAUTO100_IMG_SAVE);
+        PageHelper.startPage(ipp.getPageNum(), ipp.getPageSize());
+        return new PageInfo<>(insuranceDao.listInsurance(ipp));
     }
 
     @Override
-    public int countInsurance(ReportPriceExtend rpe) {
-        return insuranceDao.countInsurance(rpe);
+    public int countInsurance(InsurancePageParam ipp) {
+        return insuranceDao.countInsurance(ipp);
     }
 
 }

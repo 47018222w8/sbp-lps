@@ -1,8 +1,11 @@
 package com.wq.sbp.common.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,6 +26,7 @@ import redis.clients.jedis.JedisPoolConfig;
  * @since 2017年7月31日
  */
 @Configuration
+@EnableCaching
 public class RedisConfig {
 
     @Value("${redis.host}")
@@ -36,6 +40,11 @@ public class RedisConfig {
 
     @Value("${redis.database}")
     private String database;
+
+    @Bean
+    public CacheManager redisCacheManager(RedisTemplate<String, ?> redisTemplate) {
+        return new RedisCacheManager(redisTemplate);
+    }
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
@@ -59,7 +68,7 @@ public class RedisConfig {
     }
 
     private void setSerializer(StringRedisTemplate template) {
-        //序列化方式
+        // 序列化方式
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);

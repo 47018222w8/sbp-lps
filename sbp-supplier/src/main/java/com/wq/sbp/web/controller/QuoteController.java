@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wq.sbp.common.constants.SystemConfigBean;
 import com.wq.sbp.model.Insurance;
-import com.wq.sbp.model.PageHelperParam;
+import com.wq.sbp.model.InsurancePageParam;
 import com.wq.sbp.model.QuoteDTO;
 import com.wq.sbp.model.ReportPrice;
 import com.wq.sbp.model.ReportPriceExtend;
@@ -25,6 +25,10 @@ import com.wq.sbp.service.PropertyService;
 import com.wq.sbp.service.QuoteService;
 import com.wq.sbp.service.ReportPriceExtendService;
 import com.wq.sbp.service.ReportPriceService;
+
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * 报价相关业务
@@ -56,81 +60,64 @@ public class QuoteController {
     @Autowired
     private PropertyService propertyService;
 
-    /**
-     * 修改为已读
-     * 
-     *
-     * @param rpe
-     * @param request
-     * @return
-     *
-     * @author zwq
-     * @since 2017年10月7日
-     */
     @PutMapping("/reportPriceExtends")
+    @ApiOperation(value = "修改ReportPriceExtend--wq", notes = "")
     public void updateReportPriceExtend(@RequestBody ReportPriceExtend rpe, HttpServletRequest request) {
         rpe.setSupplierMemberId((Integer) request.getAttribute("memberId"));
         reportPriceExtendService.updateReportPriceExtend(rpe);
     }
 
-    /**
-     * 报价列表
-     * 
-     *
-     * @param rpe
-     * @param param
-     * @param request
-     * @return
-     *
-     * @author zwq
-     * @since 2017年10月6日
-     */
     @GetMapping("/insruances")
-    public ResponseEntity<?> listInsurance(ReportPriceExtend rpe, PageHelperParam param, HttpServletRequest request) {
-        rpe.setSupplierMemberId((Integer) request.getAttribute("memberId"));
-        // 以下前端传
-        // rpe.setReportState(0);
-        // String[] strs = { "1", "2" };
-        // rpe.setInsReportStates(strs);
-        // rpe.setMark(1);
+    @ApiOperation(value = "获取报价列表--wq", notes = "")
+    @ApiImplicitParams({ @ApiImplicitParam(name = "pageNum", value = "页码", required = true, paramType = "query", dataType = "Integer"),
+                         @ApiImplicitParam(name = "reportState",
+                                           value = "本供应商对此询价单报价状态",
+                                           required = true,
+                                           paramType = "query",
+                                           dataType = "Integer"),
+                         @ApiImplicitParam(name = "insReportStatesStr",
+                                           value = "询价单状态,逗号分隔字符串",
+                                           required = true,
+                                           paramType = "query",
+                                           dataType = "String"),
+                         @ApiImplicitParam(name = "mark",
+                                           value = "1:截止时间>now,0:<",
+                                           required = true,
+                                           paramType = "query",
+                                           dataType = "Integer"),
+                         @ApiImplicitParam(name = "isRead", value = "是否已读", required = true, paramType = "query", dataType = "Integer") })
+    public ResponseEntity<?> listInsurance(InsurancePageParam ipp, HttpServletRequest request) {
+        ipp.setSupplierMemberId((Integer) request.getAttribute("memberId"));
+        ipp.setInsReportStates(ipp.getInsReportStatesStr().split(","));
         QuoteDTO dto = new QuoteDTO();
         dto.setDomain(systemConfigBean.getDomain());
-        dto.setInsurancePage(insuranceService.listInsurance(rpe, param));
-        rpe.setIsRead(0);
-        dto.setNotReadCount(insuranceService.countInsurance(rpe));
+        dto.setInsurancePage(insuranceService.listInsurance(ipp));
+        dto.setNotReadCount(insuranceService.countInsurance(ipp));
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/insruances/{insId}")
-    public ResponseEntity<?> getInsurance(@PathVariable Integer insId, ReportPrice rp, HttpServletRequest request) {
+    @ApiOperation(value = "询价单详情--wq", notes = "")
+    @ApiImplicitParam(name = "state", value = "状态0:未报价 1:已过期 2:已报价 3中标 4已发货", required = true, paramType = "query", dataType = "String")
+    public ResponseEntity<?> getInsurance(@PathVariable Integer insId, String state, HttpServletRequest request) {
         Insurance ins = new Insurance();
         ins.setId(insId);
         Insurance insResult = insuranceService.getInsurance(ins);// 主表信息
+        ReportPrice rp = new ReportPrice();
+        rp.setState(state);
         rp.setMemberId((Integer) request.getAttribute("memberId"));
         rp.setInsId(insId);
-        // 前端传
-        // rp.setState("0");
         List<ReportPrice> rpList = reportPriceService.listReportPrice(rp);// 零件信息
         QuoteDTO dto = new QuoteDTO();
         dto.setDomain(systemConfigBean.getDomain());
         dto.setIns(insResult);
         dto.setReportPriceList(rpList);
-        dto.setQualityList(propertyService.listPropertyLJPJfFromRedis());
+        dto.setQualityList(propertyService.listPropertyLJPJ());
         return ResponseEntity.ok(dto);
     }
 
-    /**
-     * 报价
-     * 
-     *
-     * @param rpe
-     * @param request
-     * @return
-     *
-     * @author zwq
-     * @since 2017年10月6日
-     */
     @PostMapping("/reportPriceInfos")
+    @ApiOperation(value = "报价--wq", notes = "")
     public ResponseEntity<?> saveQuote(@RequestBody ReportPriceExtend rpe, HttpServletRequest request) {
         rpe.setSupplierMemberId((Integer) request.getAttribute("memberId"));
         return quoteService.saveQuote(rpe);

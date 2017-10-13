@@ -34,9 +34,6 @@ public class ReportPriceExtend {
     // 税率
     private Integer taxRate;
 
-    // 扩展字段
-    private String varStr;
-
     // 状态: 0.未报价，1.已报价
     private Integer reportState;
 
@@ -58,9 +55,6 @@ public class ReportPriceExtend {
     // 是否发送语音提醒成功
     private String isVoice;
 
-    // 这家伙很懒,没有留下注释
-    private Integer lookup;
-
     // 供应商类型0:品牌1:专项件
     private String supType;
 
@@ -77,9 +71,19 @@ public class ReportPriceExtend {
 
     private String[] insReportStates;
 
+    private String insReportStatesStr;
+
     private String param1;
 
     private String param2;
+
+    public String getInsReportStatesStr() {
+        return insReportStatesStr;
+    }
+
+    public void setInsReportStatesStr(String insReportStatesStr) {
+        this.insReportStatesStr = insReportStatesStr;
+    }
 
     public String getParam1() {
         return param1;
@@ -242,20 +246,6 @@ public class ReportPriceExtend {
     }
 
     /**
-     * 扩展字段
-     */
-    public void setVarStr(String varStr) {
-        this.varStr = varStr;
-    }
-
-    /**
-     * 扩展字段
-     */
-    public String getVarStr() {
-        return varStr;
-    }
-
-    /**
      * 状态: 0.未报价，1.已报价
      */
     public void setReportState(Integer reportState) {
@@ -351,20 +341,6 @@ public class ReportPriceExtend {
      */
     public String getIsVoice() {
         return isVoice;
-    }
-
-    /**
-     * 这家伙很懒,没有留下注释
-     */
-    public void setLookup(Integer lookup) {
-        this.lookup = lookup;
-    }
-
-    /**
-     * 这家伙很懒,没有留下注释
-     */
-    public Integer getLookup() {
-        return lookup;
     }
 
     /**

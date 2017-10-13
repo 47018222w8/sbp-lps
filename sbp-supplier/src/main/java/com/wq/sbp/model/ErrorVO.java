@@ -16,6 +16,10 @@ public class ErrorVO {
         this.httpStatusCode = ee.getHttpStatusCode();
     }
 
+    public ErrorVO() {
+
+    }
+
     public int getHttpStatusCode() {
         return httpStatusCode;
     }
@@ -38,6 +42,11 @@ public class ErrorVO {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Override
+    public String toString() {
+        return "ErrorVO [httpStatusCode=" + httpStatusCode + ", message=" + message + ", code=" + code + "]";
     }
 
 }

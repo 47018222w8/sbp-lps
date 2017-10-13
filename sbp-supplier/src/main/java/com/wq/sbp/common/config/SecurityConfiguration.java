@@ -5,6 +5,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import com.wq.sbp.common.constants.Constants;
+
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -16,13 +18,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("zzz").password("www").roles("USER");
+        auth.inMemoryAuthentication().withUser(Constants.ADMIN_ACOUNT).password(Constants.ADMIN_PWD).roles("ADMIN");
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         //因使用jwt,取消跨域伪造验证
-        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
+        http.csrf().disable().httpBasic().and().authorizeRequests().antMatchers("/swagger-ui.html").hasRole("ADMIN").anyRequest().permitAll();
     }
 
 }

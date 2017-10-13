@@ -9,10 +9,8 @@
 			ibs_supplier
 		WHERE
 			member_id = #{memberId}
-		<if test="flag != null">
-			AND
-				flag = #{flag}
-		</if>
+		AND
+			flag = '1'
 	</select>
 	<insert id="saveSupplierList">
 		INSERT INTO

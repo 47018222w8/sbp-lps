@@ -24,32 +24,20 @@ public class PropertyServiceImpl implements PropertyService {
     private RedisTemplate<String, Property> redisTemplate;
 
     @Override
-    public void savePropertyListLJPJToRedis() {
-        redisTemplate.delete(Constants.CACHE_QUALITY_PROPERTY);
-        redisTemplate.opsForList().rightPushAll(Constants.CACHE_QUALITY_PROPERTY, listPropertyLJPJ());
-    }
-
-    @Override
-    public List<Property> listPropertyLJPJfFromRedis() {
+    public List<Property> listPropertyLJPJ() {
         List<Property> result = redisTemplate.opsForList().range(Constants.CACHE_QUALITY_PROPERTY, 0, -1);
-        if (result == null || result.isEmpty()) {
-            savePropertyListLJPJToRedis();
-            return listPropertyLJPJ();
+        if(result == null || result.isEmpty()){
+            List<Property> propertys = propertyDao.listPropertyChildByCode("ljpz");
+            result = new LinkedList<>();
+            for (Property p : propertys) {
+                List<Property> sons = propertyDao.listPropertyChildByCode(p.getPropertyCode());
+                if (sons != null && !sons.isEmpty()) {
+                    result.addAll(sons);
+                }
+            }
+            redisTemplate.opsForList().rightPushAll(Constants.CACHE_QUALITY_PROPERTY, result);
         }
         return result;
-    }
-
-    @Override
-    public List<Property> listPropertyLJPJ() {
-        List<Property> propertys = propertyDao.listPropertyChildByCode("ljpz");
-        List<Property> resultList = new LinkedList<>();
-        for (Property p : propertys) {
-            List<Property> sons = propertyDao.listPropertyChildByCode(p.getPropertyCode());
-            if (sons != null && !sons.isEmpty()) {
-                resultList.addAll(sons);
-            }
-        }
-        return resultList;
     }
 
 }

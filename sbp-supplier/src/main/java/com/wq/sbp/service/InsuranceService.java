@@ -2,8 +2,7 @@ package com.wq.sbp.service;
 
 import com.github.pagehelper.PageInfo;
 import com.wq.sbp.model.Insurance;
-import com.wq.sbp.model.PageHelperParam;
-import com.wq.sbp.model.ReportPriceExtend;
+import com.wq.sbp.model.InsurancePageParam;
 
 /**
  * 
@@ -15,7 +14,7 @@ public interface InsuranceService {
 
     Insurance getInsurance(Insurance ins);
 
-    PageInfo<Insurance> listInsurance(ReportPriceExtend rpe, PageHelperParam param);
+    PageInfo<Insurance> listInsurance(InsurancePageParam ipp);
 
-    int countInsurance(ReportPriceExtend rpe);
+    int countInsurance(InsurancePageParam ipp);
 }

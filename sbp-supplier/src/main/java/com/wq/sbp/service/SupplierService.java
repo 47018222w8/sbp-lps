@@ -40,7 +40,7 @@ public interface SupplierService {
      * @author zwq
      * @since 2017年9月26日
      */
-    ResponseEntity<?> saveSupplier(Supplier supplier);
+    void saveSupplier(Supplier supplier);
 
     /**
      * 获取还没有经营的品牌

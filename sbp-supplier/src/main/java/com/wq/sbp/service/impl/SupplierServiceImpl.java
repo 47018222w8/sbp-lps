@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ public class SupplierServiceImpl implements SupplierService {
     private CarBrandServcie carBrandServcie;
 
     @Override
-    public ResponseEntity<?> saveSupplier(Supplier sup) {
+    public void saveSupplier(Supplier sup) {
         List<Integer> newList = sup.getCarBrandIdList();
         List<Integer> oldList = supplierDao.listCarBrandId(sup);
         // 1. 取出数据库中不存在的,插入数据库
@@ -53,14 +52,14 @@ public class SupplierServiceImpl implements SupplierService {
             s.setCarBrandId(carBrandId);
             supplierDao.updateSupplier(s);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<?> listCarBrandNotOperate(Supplier sup) {
-        List<CarBrandSortDTO> list = carBrandServcie.listCarBrandGroupByLetterFromRedis();
+        List<CarBrandSortDTO> list = carBrandServcie.listCarBrandGroupByLetter();
         List<Integer> ids = supplierDao.listCarBrandId(sup);
         list.forEach(dto -> dto.getCarBrandList().removeIf(item -> ids.contains(item.getCarBrandId())));// 去除已经营的品牌
+        list.removeIf(item -> item.getCarBrandList() == null || item.getCarBrandList().isEmpty());// 去除不含品牌的首字母
         return ResponseEntity.ok(list);
     }
 
@@ -68,16 +67,11 @@ public class SupplierServiceImpl implements SupplierService {
     public List<Supplier> listSupplier(Supplier sup) {
         sup.setParam1(Constants.EAUTO100_IMG_VISIT);
         sup.setParam2(Constants.EAUTO100_IMG_SAVE);
-        // 前端传
-        // sup.setFlag("1");
         return supplierDao.listSupplier(sup);
     }
 
-
     @Override
     public int updateSupplierList(Supplier sup) {
-        // 前端传
-        // sup.setFlag("0");
         return supplierDao.updateSupplier(sup);
     }
 }

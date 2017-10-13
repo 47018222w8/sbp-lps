@@ -22,9 +22,6 @@ public class GlobalInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        long startTime = System.currentTimeMillis();
-        logger.info(request.getRequestURI());
-        request.setAttribute("startTime", startTime);
         try {
             String token = request.getHeader(Constants.JWT_HEADER);
             token = token.substring(Constants.JWT_TOKEN_HEAD.length());
@@ -47,10 +44,5 @@ public class GlobalInterceptor extends HandlerInterceptorAdapter {
                            HttpServletResponse response,
                            Object handler,
                            ModelAndView modelAndView) throws Exception {
-        long startTime = (Long) request.getAttribute("startTime");
-        request.removeAttribute("startTime");
-        long endTime = System.currentTimeMillis();
-        System.out.println(request.getRequestURI() + ":" + new Long(endTime - startTime) + "ms");
-        request.setAttribute("handlingTime", endTime - startTime);
     }
 }

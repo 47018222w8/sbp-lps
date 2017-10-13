@@ -56,7 +56,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new GlobalInterceptor()).addPathPatterns("/api/1.0/LPS/**").excludePathPatterns("/api/1.0/LPS/login/**");
+        registry.addInterceptor(new GlobalInterceptor()).addPathPatterns("/v1/**").excludePathPatterns("/v1/sessions/**");
     }
 
     /**

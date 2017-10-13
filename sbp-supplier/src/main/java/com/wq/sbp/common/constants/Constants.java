@@ -15,4 +15,12 @@ public class Constants {
     public static final String CACHE_QUALITY_PROPERTY = "quaility_property";
 
     public static final String CACHE_CAR_BRAND_SORT = "cache_car_brand_sort";
+
+    public static final String ADMIN_ACOUNT = "admin";
+
+    public static final String ADMIN_PWD = "justdoit";
+
+    public final static String TOPIC_MESSAGE = "topic.message";
+
+    public final static String TOPIC_MESSAGES = "topic.messages";
 }

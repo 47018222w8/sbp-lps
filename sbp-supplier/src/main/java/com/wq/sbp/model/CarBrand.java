@@ -48,6 +48,40 @@ public class CarBrand {
 
     private boolean check;
 
+    @Override
+    public String toString() {
+        return "CarBrand [carBrandId=" + carBrandId
+                + ", carBrandName="
+                + carBrandName
+                + ", brandLogo="
+                + brandLogo
+                + ", carFirstLetter="
+                + carFirstLetter
+                + ", isHot="
+                + isHot
+                + ", nationalName="
+                + nationalName
+                + ", appLogo="
+                + appLogo
+                + ", canFindPartShow="
+                + canFindPartShow
+                + ", askpriceIsHot="
+                + askpriceIsHot
+                + ", liyangCarBrandName="
+                + liyangCarBrandName
+                + ", param1="
+                + param1
+                + ", param2="
+                + param2
+                + ", key="
+                + key
+                + ", value="
+                + value
+                + ", check="
+                + check
+                + "]";
+    }
+
     public boolean isCheck() {
         return check;
     }

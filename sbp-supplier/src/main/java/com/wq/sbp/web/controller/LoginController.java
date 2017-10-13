@@ -26,7 +26,7 @@ public class LoginController {
      * @author zwq
      * @since 2017年8月18日
      */
-    @PostMapping("/session")
+    @PostMapping("/sessions")
     public ResponseEntity<?> login(@RequestBody Member member) {
         return loginServie.login(member);
     }
