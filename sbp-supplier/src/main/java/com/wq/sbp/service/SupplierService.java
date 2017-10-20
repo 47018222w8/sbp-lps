@@ -4,20 +4,27 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.wq.sbp.model.Supplier;
+import com.wq.sbp.model.SupplierDO;
 
-public interface SupplierService {
+/**
+ * 经营范围相关业务处理
+ * 目前:1 车型件 2 专项件
+ *
+ * @author zwq
+ * @date 2017年10月16日
+ */
+public interface SupplierService<T> {
 
     /**
      * 已经经营的品牌
      *
-     * @param sup
+     * @param sup memberId flag
      * @return
      *
      * @author zwq
      * @since 2017年9月30日
      */
-    List<Supplier> listSupplier(Supplier sup);
+    List<SupplierDO> listSupplier(T sup);
 
     /**
      * 不经营
@@ -28,28 +35,27 @@ public interface SupplierService {
      * @author zwq
      * @since 2017年9月30日
      */
-    int updateSupplierList(Supplier sup);
+    int updateSupplierList(T sup);
 
     /**
      * 增加品牌供应商
      * 
-     * @param list carBrandId 集合
-     * @param supplier 含member_id
+     * @param sup
      * @return
      *
      * @author zwq
      * @since 2017年9月26日
      */
-    void saveSupplier(Supplier supplier);
+    void saveSupplier(T sup);
 
     /**
      * 获取还没有经营的品牌
      *
-     * @param memberId
-     * @return
+     * @param sup memberId
+     * @return ResponseEntity
      *
      * @author zwq
      * @since 2017年9月26日
      */
-    ResponseEntity<?> listCarBrandNotOperate(Supplier sup);
+    ResponseEntity<?> listCarBrandNotOperate(T sup);
 }

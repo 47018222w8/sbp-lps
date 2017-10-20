@@ -11,9 +11,15 @@ import org.springframework.stereotype.Service;
 
 import com.wq.sbp.common.constants.Constants;
 import com.wq.sbp.dao.PropertyDao;
-import com.wq.sbp.model.Property;
+import com.wq.sbp.model.PropertyDO;
 import com.wq.sbp.service.PropertyService;
-
+/**
+ * PropertyServiceImpl
+ * 
+ *
+ * @author zwq
+ * @date 2017年10月16日
+ */
 @Service
 public class PropertyServiceImpl implements PropertyService {
 
@@ -21,16 +27,16 @@ public class PropertyServiceImpl implements PropertyService {
     private PropertyDao propertyDao;
 
     @Resource
-    private RedisTemplate<String, Property> redisTemplate;
+    private RedisTemplate<String, PropertyDO> redisTemplate;
 
     @Override
-    public List<Property> listPropertyLJPJ() {
-        List<Property> result = redisTemplate.opsForList().range(Constants.CACHE_QUALITY_PROPERTY, 0, -1);
+    public List<PropertyDO> listPropertyLJPJ() {
+        List<PropertyDO> result = redisTemplate.opsForList().range(Constants.CACHE_QUALITY_PROPERTY, 0, -1);
         if(result == null || result.isEmpty()){
-            List<Property> propertys = propertyDao.listPropertyChildByCode("ljpz");
+            List<PropertyDO> propertys = propertyDao.listPropertyChildByCode("ljpz");
             result = new LinkedList<>();
-            for (Property p : propertys) {
-                List<Property> sons = propertyDao.listPropertyChildByCode(p.getPropertyCode());
+            for (PropertyDO p : propertys) {
+                List<PropertyDO> sons = propertyDao.listPropertyChildByCode(p.getPropertyCode());
                 if (sons != null && !sons.isEmpty()) {
                     result.addAll(sons);
                 }

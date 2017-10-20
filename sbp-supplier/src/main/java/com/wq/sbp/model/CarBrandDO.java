@@ -2,51 +2,69 @@ package com.wq.sbp.model;
 
 /**
  * EsCarBrand 实体类
- * 2017-09-20
+ * @author zwq
  */
-public class CarBrand {
+public class CarBrandDO {
 
-    // 这家伙很懒,没有留下注释
     private Integer carBrandId;
 
-    // 汽车品牌名称,如:一汽大众
     private String carBrandName;
 
-    // 品牌logo图片路径
     private String brandLogo;
 
-    // 首字母
+    /**
+     * 首字母
+     * 
+     * @author zwq
+     */
     private Character carFirstLetter;
 
-    // 是否热门品牌 0- not 1- yes
+    /**
+     * 是否热门
+     * 
+     * @author zwq
+     */
     private String isHot;
 
-    // 国家名称
     private String nationalName;
 
-    // app端车标
     private String appLogo;
 
-    // 找件是否显示0:不显示,1显示
     private Integer canFindPartShow;
 
-    // 询价是否是热门车型
+    /**
+     * 询价是否热门
+     * 
+     * @author zwq
+     */
     private Integer askpriceIsHot;
 
-    // 力洋数据返回的car_name（由于没有车型库，通过品牌汉字对应）
+    /**
+     * 力洋数据返回的car_name（由于没有车型库，通过品牌汉字对应）
+     * 
+     * @author zwq
+     */
     private String liyangCarBrandName;
 
-    // 补充字段
+    /**
+     * 补充字段
+     * 
+     * @author zwq
+     */
     private String param1;
 
-    // 补充字段
+    /**
+     * 补充字段
+     * 
+     * @author zwq
+     */
     private String param2;
 
     private String key;
 
     private String value;
 
-    private boolean check;
+    private Boolean check;
 
     @Override
     public String toString() {
@@ -82,11 +100,11 @@ public class CarBrand {
                 + "]";
     }
 
-    public boolean isCheck() {
+    public Boolean isCheck() {
         return check;
     }
 
-    public void setCheck(boolean check) {
+    public void setCheck(Boolean check) {
         this.check = check;
     }
 
@@ -122,44 +140,26 @@ public class CarBrand {
         this.param2 = param2;
     }
 
-    /**
-     * 这家伙很懒,没有留下注释
-     */
     public void setCarBrandId(Integer carBrandId) {
         this.carBrandId = carBrandId;
     }
 
-    /**
-     * 这家伙很懒,没有留下注释
-     */
     public Integer getCarBrandId() {
         return carBrandId;
     }
 
-    /**
-     * 汽车品牌名称,如:一汽大众
-     */
     public void setCarBrandName(String carBrandName) {
         this.carBrandName = carBrandName;
     }
 
-    /**
-     * 汽车品牌名称,如:一汽大众
-     */
     public String getCarBrandName() {
         return carBrandName;
     }
 
-    /**
-     * 品牌logo图片路径
-     */
     public void setBrandLogo(String brandLogo) {
         this.brandLogo = brandLogo;
     }
 
-    /**
-     * 品牌logo图片路径
-     */
     public String getBrandLogo() {
         return brandLogo;
     }
@@ -172,90 +172,50 @@ public class CarBrand {
         this.carFirstLetter = carFirstLetter;
     }
 
-    /**
-     * 是否热门品牌
-     * 0- not
-     * 1- yes
-     */
     public void setIsHot(String isHot) {
         this.isHot = isHot;
     }
 
-    /**
-     * 是否热门品牌
-     * 0- not
-     * 1- yes
-     */
     public String getIsHot() {
         return isHot;
     }
 
-    /**
-     * 国家名称
-     */
     public void setNationalName(String nationalName) {
         this.nationalName = nationalName;
     }
 
-    /**
-     * 国家名称
-     */
     public String getNationalName() {
         return nationalName;
     }
 
-    /**
-     * app端车标
-     */
     public void setAppLogo(String appLogo) {
         this.appLogo = appLogo;
     }
 
-    /**
-     * app端车标
-     */
     public String getAppLogo() {
         return appLogo;
     }
 
-    /**
-     * 找件是否显示0:不显示,1显示
-     */
     public void setCanFindPartShow(Integer canFindPartShow) {
         this.canFindPartShow = canFindPartShow;
     }
 
-    /**
-     * 找件是否显示0:不显示,1显示
-     */
     public Integer getCanFindPartShow() {
         return canFindPartShow;
     }
 
-    /**
-     * 询价是否是热门车型
-     */
     public void setAskpriceIsHot(Integer askpriceIsHot) {
         this.askpriceIsHot = askpriceIsHot;
     }
 
-    /**
-     * 询价是否是热门车型
-     */
     public Integer getAskpriceIsHot() {
         return askpriceIsHot;
     }
 
-    /**
-     * 力洋数据返回的car_name（由于没有车型库，通过品牌汉字对应）
-     */
     public void setLiyangCarBrandName(String liyangCarBrandName) {
         this.liyangCarBrandName = liyangCarBrandName;
     }
 
-    /**
-     * 力洋数据返回的car_name（由于没有车型库，通过品牌汉字对应）
-     */
     public String getLiyangCarBrandName() {
         return liyangCarBrandName;
     }

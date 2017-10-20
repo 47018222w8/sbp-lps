@@ -1,5 +1,10 @@
 package org.sbp.common.model;
-
+/**
+ * 微信模板固定格式
+ * 
+ * @author zwq
+ * @date 2017年10月17日
+ */
 public class TemplateMessageData {
 
     private TemplateMessageDataParam first;
@@ -65,56 +70,63 @@ public class TemplateMessageData {
         return first;
     }
 
-    public void setFirst(TemplateMessageDataParam first) {
+    public TemplateMessageData setFirst(TemplateMessageDataParam first) {
         this.first = first;
+        return this;
     }
 
     public TemplateMessageDataParam getKeyword1() {
         return keyword1;
     }
 
-    public void setKeyword1(TemplateMessageDataParam keyword1) {
+    public TemplateMessageData setKeyword1(TemplateMessageDataParam keyword1) {
         this.keyword1 = keyword1;
+        return this;
     }
 
     public TemplateMessageDataParam getKeyword2() {
         return keyword2;
     }
 
-    public void setKeyword2(TemplateMessageDataParam keyword2) {
+    public TemplateMessageData setKeyword2(TemplateMessageDataParam keyword2) {
         this.keyword2 = keyword2;
+        return this;
     }
 
     public TemplateMessageDataParam getKeyword3() {
         return keyword3;
     }
 
-    public void setKeyword3(TemplateMessageDataParam keyword3) {
+    public TemplateMessageData setKeyword3(TemplateMessageDataParam keyword3) {
         this.keyword3 = keyword3;
+        return this;
     }
 
     public TemplateMessageDataParam getKeyword4() {
         return keyword4;
     }
 
-    public void setKeyword4(TemplateMessageDataParam keyword4) {
+    public TemplateMessageData setKeyword4(TemplateMessageDataParam keyword4) {
         this.keyword4 = keyword4;
+        return this;
     }
 
     public TemplateMessageDataParam getKeyword5() {
         return keyword5;
     }
 
-    public void setKeyword5(TemplateMessageDataParam keyword5) {
+    public TemplateMessageData setKeyword5(TemplateMessageDataParam keyword5) {
         this.keyword5 = keyword5;
+        return this;
     }
 
     public TemplateMessageDataParam getRemark() {
         return remark;
     }
 
-    public void setRemark(TemplateMessageDataParam remark) {
+    public TemplateMessageData setRemark(TemplateMessageDataParam remark) {
         this.remark = remark;
+        return this;
     }
 
     @Override

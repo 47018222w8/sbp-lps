@@ -13,13 +13,20 @@ import org.springframework.stereotype.Service;
 import com.wq.sbp.dao.MemberDao;
 import com.wq.sbp.dao.StoreDao;
 import com.wq.sbp.model.ErrorEnum;
-import com.wq.sbp.model.ErrorVO;
-import com.wq.sbp.model.Member;
-import com.wq.sbp.model.Store;
-import com.wq.sbp.service.LoginServie;
+import com.wq.sbp.model.ErrorDTO;
+import com.wq.sbp.model.MemberDO;
+import com.wq.sbp.model.StoreDO;
+import com.wq.sbp.service.SessionServie;
 
+/**
+ * 会话处理
+ *
+ *
+ * @author zwq
+ * @since 2017年9月19日
+ */
 @Service
-public class LoginServieImpl implements LoginServie {
+public class SessionServieImpl implements SessionServie {
 
     @Autowired
     private MemberDao memberDao;
@@ -28,25 +35,25 @@ public class LoginServieImpl implements LoginServie {
     private StoreDao storeDao;
 
     @Override
-    public ResponseEntity<?> login(Member member) {
+    public ResponseEntity<?> login(MemberDO member) {
         String pwd = member.getPassword();
         member.setPassword(null);
-        Member m1 = memberDao.getMember(member);
+        MemberDO m1 = memberDao.getMember(member);
         if (m1 == null) {
-            return new ResponseEntity<>(new ErrorVO(ErrorEnum.ACCOUNT_NULL), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<ErrorDTO>(new ErrorDTO(ErrorEnum.ACCOUNT_NULL), HttpStatus.UNAUTHORIZED);
         }
         member.setPassword(MD5Util.md5(pwd));
-        Member m = memberDao.getMember(member);
+        MemberDO m = memberDao.getMember(member);
         if (m == null) {
-            return new ResponseEntity<>(new ErrorVO(ErrorEnum.PWD_ERROR), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<ErrorDTO>(new ErrorDTO(ErrorEnum.PWD_ERROR), HttpStatus.UNAUTHORIZED);
         }
-        Store store = new Store();
+        StoreDO store = new StoreDO();
         store.setMemberId(m.getMemberId());
-        Store s = storeDao.getStore(store);
+        StoreDO s = storeDao.getStore(store);
         if (s == null) {
-            return new ResponseEntity<>(new ErrorVO(ErrorEnum.STORE_VALIDATE), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<ErrorDTO>(new ErrorDTO(ErrorEnum.STORE_VALIDATE), HttpStatus.UNAUTHORIZED);
         }
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         map.put("memberId", m.getMemberId());
         return ResponseEntity.ok(JWTUtil.generateToken(map));
     }

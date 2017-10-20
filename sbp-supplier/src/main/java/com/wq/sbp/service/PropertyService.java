@@ -2,8 +2,14 @@ package com.wq.sbp.service;
 
 import java.util.List;
 
-import com.wq.sbp.model.Property;
-
+import com.wq.sbp.model.PropertyDO;
+/**
+ * PropertyService
+ * 
+ *
+ * @author zwq
+ * @date 2017年10月16日
+ */
 public interface PropertyService {
 
     /**
@@ -14,5 +20,5 @@ public interface PropertyService {
      * @author zwq
      * @since 2017年9月20日
      */
-    List<Property> listPropertyLJPJ();
+    List<PropertyDO> listPropertyLJPJ();
 }

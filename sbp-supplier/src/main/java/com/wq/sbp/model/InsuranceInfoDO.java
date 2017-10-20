@@ -4,52 +4,125 @@ import java.math.BigDecimal;
 
 /**
  * IbsInsuranceInfo 实体类
- * 2017-08-22
+ * 
+ * @author zwq
  */
-public class InsuranceInfo {
+public class InsuranceInfoDO {
 
-    // id
     private String id;
 
-    // 创建时间
-    private Long createDate;
-
-    // 保险单ID
+    /**
+     * 询价单id
+     * 
+     * @author zwq
+     */
     private Integer insuranceId;
 
-    // 部件名称
+    /**
+     * 名称
+     * 
+     * @author zwq
+     */
     private String name;
 
-    // 数量
+    /**
+     * 数量
+     * 
+     * @author zwq
+     */
     private Integer amount;
 
-    // 备注
+    /**
+     * 备注
+     * 
+     * @author zwq
+     */
     private String remarks;
 
-    // 是否处理:0.未处理,1.已处理,默认为0
+    /**
+     * 是否处理:0.未处理,1.已处理,默认为0
+     * 
+     * @author zwq
+     */
     private Integer isProcess;
 
     private String reportState;
 
     private String img;
 
-    // 零件图片url
+    /**
+     * 零件图片url
+     * 
+     * @author zwq
+     */
     private String img1;
 
-    // 零件图片url
+    /**
+     * 零件图片url
+     * 
+     * @author zwq
+     */
     private String img2;
 
-    // 零件图片url
+    /**
+     * 零件图片url
+     * 
+     * @author zwq
+     */
     private String img3;
 
-    // 零件图片url
+    /**
+     * 零件图片url
+     * 
+     * @author zwq
+     */
     private String img4;
 
-    // 目标价
+    /**
+     * 目标价
+     * 
+     * @author zwq
+     */
     private BigDecimal targetPrice;
 
-    // 品质要求（对应t_property）
+    /**
+     * 品质要求（对应t_property）
+     * 
+     * @author zwq
+     */
     private Integer qualityRequirement;
+
+    @Override
+    public String toString() {
+        return "InsuranceInfoDO [id=" + id
+                + ", insuranceId="
+                + insuranceId
+                + ", name="
+                + name
+                + ", amount="
+                + amount
+                + ", remarks="
+                + remarks
+                + ", isProcess="
+                + isProcess
+                + ", reportState="
+                + reportState
+                + ", img="
+                + img
+                + ", img1="
+                + img1
+                + ", img2="
+                + img2
+                + ", img3="
+                + img3
+                + ", img4="
+                + img4
+                + ", targetPrice="
+                + targetPrice
+                + ", qualityRequirement="
+                + qualityRequirement
+                + "]";
+    }
 
     public String getId() {
         return id;
@@ -57,14 +130,6 @@ public class InsuranceInfo {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Long getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Long createDate) {
-        this.createDate = createDate;
     }
 
     public Integer getInsuranceId() {

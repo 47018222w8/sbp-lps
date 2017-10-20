@@ -13,7 +13,7 @@ import com.github.pagehelper.PageHelper;
 import com.wq.sbp.framework.GlobalInterceptor;
 
 /**
- * 
+ * web配置
  *
  *
  * @author zwq
@@ -71,8 +71,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        // registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE",
-        // "OPTIONS")
-        // .allowCredentials(false).allowedHeaders("*").maxAge(3600);
+        registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowCredentials(false).allowedHeaders("http://localhost:8080/").maxAge(3600);
     }
 }

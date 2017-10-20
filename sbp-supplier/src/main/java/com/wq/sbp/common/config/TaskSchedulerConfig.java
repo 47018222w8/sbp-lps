@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  *
  *
  * @author zwq
- * @since 2017年8月10日
+ * @date 2017年8月10日
  */
 @Configuration
 @EnableScheduling

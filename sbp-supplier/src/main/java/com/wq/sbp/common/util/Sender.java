@@ -2,9 +2,17 @@ package com.wq.sbp.common.util;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
+/**
+ * rabbitmq 发送者 用来测试的
+ *
+ *
+ * @author zwq
+ * @date 2017年10月16日
+ */
 @Component
+@Profile("own")
 public class Sender {
 
     @Autowired

@@ -24,24 +24,40 @@ import org.junit.Test;
  *
  *
  * @author zwq
- * @since 2017年7月2日
+ * @date 2017年7月2日
  */
-public class CreateBean {
+public class CreateBeanTest {
 
-    private String tablename = "t_supplier_car_part";
+    private String tablename = "t_car_part_sort";
 
-    // 不写默认为驼峰
-    private String modelName = "SupplierCarPart";
+    /**
+     * 不写默认驼峰
+     * @author zwq
+     */
+    private String modelName = "CarPartSortDO";
 
     private String modelOutPath = "com.wq.sbp.model";
 
-    private String[] colNames; // 列名数组
+    private String authName = "zwq";
 
-    private String[] colTypes; // 列名类型数组
+    /**
+     * 列名数组
+     * @author zwq
+     */
+    private String[] colNames;
 
-    private String[] colRemarks;// 备注
+    /**
+     * 列名类型数组
+     * @author zwq
+     * 
+     */
+    private String[] colTypes;
 
-    private boolean f_util = false; // 是否需要导入包java.util.*
+    /**
+     * 备注
+     * @author zwq
+     */
+    private String[] colRemarks;
 
     private String url = "jdbc:mysql://192.168.1.254:3306/eauto100?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false";
 
@@ -50,8 +66,8 @@ public class CreateBean {
     private String pwd = "123456";
 
     @Test
-    public void test1() {
-        CreateBean createBean = new CreateBean();
+    public void createBeanTest() {
+        CreateBeanTest createBean = new CreateBeanTest();
         createBean.createBeanMethod();
     }
 
@@ -70,9 +86,15 @@ public class CreateBean {
         return conn;
     }
 
+    /**
+     * 
+     *
+     *
+     * @author zwq
+     * @since 2017年10月16日
+     */
     public void createBeanMethod() {
-        Connection conn = getConnection(); // 得到数据库连接
-        // myDB为数据库名
+        Connection conn = getConnection();
         String strsql = "select * from " + tablename;
         PreparedStatement pstmt = null;
         ResultSetMetaData rsmd = null;
@@ -81,7 +103,7 @@ public class CreateBean {
             pstmt = conn.prepareStatement(strsql);
             rsmd = pstmt.getMetaData();
             rs = conn.getMetaData().getColumns(null, "", tablename, "%");
-            int size = rsmd.getColumnCount(); // 共有多少列
+            int size = rsmd.getColumnCount(); 
             colNames = new String[size];
             colTypes = new String[size];
             colRemarks = new String[size];
@@ -96,10 +118,6 @@ public class CreateBean {
             for (int i = 0; i < rsmd.getColumnCount(); i++) {
                 colNames[i] = rsmd.getColumnName(i + 1);
                 colTypes[i] = rsmd.getColumnTypeName(i + 1);
-                if (colTypes[i].equalsIgnoreCase("datetime") || colTypes[i].equalsIgnoreCase("DATE")
-                        || colTypes[i].equalsIgnoreCase("TIMESTAMP")) {
-                    f_util = true;
-                }
             }
             String contentModel = parseModel();
             try {
@@ -140,14 +158,12 @@ public class CreateBean {
     private String parseModel() {
         StringBuffer sb = new StringBuffer();
         sb.append("package " + this.modelOutPath + ";\r\n");
-        if (f_util) {
-            sb.append("import java.util.Date;\r\n");
-        }
         sb.append("\r\n");
         // 注释部分
         sb.append("/**\r\n");
         sb.append(" * " + initcap(tablename) + " 实体类\r\n");
-        sb.append(" * " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "\r\n");
+        sb.append(" * @date " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "\r\n");
+        sb.append(" * @author " + authName + "\r\n");
         sb.append(" */ \r\n");
         // 实体部分
 
@@ -162,29 +178,25 @@ public class CreateBean {
     }
 
     /**
-     * 生成所有的方法
-     * 
+     * 生成所有方法
+     *
      * @param sb
+     *
+     * @author zwq
+     * @since 2017年10月16日
      */
     private void processAllMethod(StringBuffer sb) {
         for (int i = 0; i < colNames.length; i++) {
-            // 注释部分
-            sb.append("\t/**\r\n");
-            sb.append("\t * " + colRemarks[i] + " \r\n");
-            sb.append("\t */ \r\n");
             // set
-            sb.append("\tpublic void set" + initcap(colNames[i])
+            sb.append("\tpublic " + modelName + " set" + initcap(colNames[i])
                     + "("
                     + sqlType2JavaType(colTypes[i])
                     + " "
                     + defineVar(colNames[i])
                     + "){\r\n");
             sb.append("\t\tthis." + this.defineVar(colNames[i]) + "=" + this.defineVar(colNames[i]) + ";\r\n");
+            sb.append("\t\treturn this;\r\n");
             sb.append("\t}\r\n");
-            // 注释部分
-            sb.append("\t/**\r\n");
-            sb.append("\t * " + colRemarks[i] + " \r\n");
-            sb.append("\t */ \r\n");
             // get
             sb.append("\tpublic " + sqlType2JavaType(colTypes[i]) + " get" + initcap(colNames[i]) + "(){\r\n");
             sb.append("\t\treturn " + defineVar(colNames[i]) + ";\r\n");
@@ -199,7 +211,10 @@ public class CreateBean {
      */
     private void processAllAttrs(StringBuffer sb) {
         for (int i = 0; i < colNames.length; i++) {
-            sb.append("\r\n\t // " + colRemarks[i]);
+            sb.append("\t/**\r\n");
+            sb.append("\t * " + colRemarks[i] + " \r\n");
+            sb.append("\t * @author " + authName + " \r\n");
+            sb.append("\t */ \r");
             sb.append("\r\n\tprivate " + sqlType2JavaType(colTypes[i]) + " " + defineVar(colNames[i]) + ";\r\n");
         }
     }
@@ -234,7 +249,8 @@ public class CreateBean {
                 charArry[i + 1] = (char) (charArry[i + 1] - 32);
             }
         }
-        if (charArry[0] > 96) {
+        int small= 96;
+        if (charArry[0] > small) {
             charArry[0] = (char) (charArry[0] - 32);
         }
 
@@ -279,12 +295,6 @@ public class CreateBean {
         case "DECIMAL":
 
             return "BigDecimal";
-        case "DATE":
-
-            return "Date";
-        case "DATETIME":
-
-            return "Date";
         case "TIMESTAMP":
 
             return "Date";
@@ -315,8 +325,10 @@ public class CreateBean {
         case "LONGBLOB":
 
             return "byte[]";
+        default:
+            return "String";
         }
-        return "String";
+
     }
 
 }

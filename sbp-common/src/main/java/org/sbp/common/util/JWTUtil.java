@@ -21,11 +21,12 @@ public class JWTUtil {
         Map<String, Object> map = new HashMap<>();
         map.put("memberId", 1);
         String result = generateToken(map);
-        System.out.println(result);
+        String result1 = generateToken(map);
+        System.out.println(result.equals(result1));
         Claims cl = getClaimsFromToken(result);
         System.out.println(cl.get("memberId"));
     }
-
+    
     public static String generateToken(Map<String, Object> claims) {
 
         return Jwts.builder().setClaims(claims).setExpiration(DateUtils.addDays(new Date(), 7))

@@ -1,5 +1,10 @@
 package org.sbp.common.model;
-
+/**
+ * 微信模板固定格式
+ * 
+ * @author zwq
+ * @date 2017年10月17日
+ */
 public class TemplateMessageDataParam {
 
     private String value;

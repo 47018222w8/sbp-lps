@@ -13,42 +13,70 @@ import com.github.pagehelper.PageInfo;
  */
 public class QuoteDTO {
 
-    // 静态资源前缀
+    /**
+     * 静态资源前缀
+     * 
+     * @author zwq
+     */
     private String domain;
 
-    // 主表列表
-    private PageInfo<Insurance> insurancePage;
+    /**
+     * 询价单列表
+     * 
+     * @author zwq
+     */
+    private PageInfo<InsuranceDO> insurancePage;
 
-    // 未读询价单数
-    private int notReadCount;
+    /**
+     * 未读询价单数
+     * 
+     * @author zwq
+     */
+    private Integer notReadCount;
 
-    private Insurance ins;
+    private InsuranceDO ins;
 
-    private List<ReportPrice> reportPriceList;
+    private List<ReportPriceDO> reportPriceList;
 
-    private List<Property> qualityList;
+    private List<PropertyDO> qualityList;
 
-    public List<ReportPrice> getReportPriceList() {
+    @Override
+    public String toString() {
+        return "QuoteDTO [domain=" + domain
+                + ", insurancePage="
+                + insurancePage
+                + ", notReadCount="
+                + notReadCount
+                + ", ins="
+                + ins
+                + ", reportPriceList="
+                + reportPriceList
+                + ", qualityList="
+                + qualityList
+                + "]";
+    }
+
+    public List<ReportPriceDO> getReportPriceList() {
         return reportPriceList;
     }
 
-    public void setReportPriceList(List<ReportPrice> reportPriceList) {
+    public void setReportPriceList(List<ReportPriceDO> reportPriceList) {
         this.reportPriceList = reportPriceList;
     }
 
-    public List<Property> getQualityList() {
+    public List<PropertyDO> getQualityList() {
         return qualityList;
     }
 
-    public void setQualityList(List<Property> qualityList) {
+    public void setQualityList(List<PropertyDO> qualityList) {
         this.qualityList = qualityList;
     }
 
-    public Insurance getIns() {
+    public InsuranceDO getIns() {
         return ins;
     }
 
-    public void setIns(Insurance ins) {
+    public void setIns(InsuranceDO ins) {
         this.ins = ins;
     }
 
@@ -60,19 +88,19 @@ public class QuoteDTO {
         this.domain = domain;
     }
 
-    public PageInfo<Insurance> getInsurancePage() {
+    public PageInfo<InsuranceDO> getInsurancePage() {
         return insurancePage;
     }
 
-    public void setInsurancePage(PageInfo<Insurance> insurancePage) {
+    public void setInsurancePage(PageInfo<InsuranceDO> insurancePage) {
         this.insurancePage = insurancePage;
     }
 
-    public int getNotReadCount() {
+    public Integer getNotReadCount() {
         return notReadCount;
     }
 
-    public void setNotReadCount(int notReadCount) {
+    public void setNotReadCount(Integer notReadCount) {
         this.notReadCount = notReadCount;
     }
 

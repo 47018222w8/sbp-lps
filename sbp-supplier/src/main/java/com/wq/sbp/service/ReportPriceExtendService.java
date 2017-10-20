@@ -1,10 +1,24 @@
 package com.wq.sbp.service;
 
-import com.wq.sbp.model.ReportPriceExtend;
+import com.wq.sbp.model.ReportPriceExtendDO;
 
+/**
+ * ReportPriceExtendService
+ * 
+ *
+ * @author zwq
+ * @date 2017年10月16日
+ */
 public interface ReportPriceExtendService {
 
-    int countQuote(ReportPriceExtend rpe);
-
-    int updateReportPriceExtend(ReportPriceExtend rpe);
+    /**
+     * 更新
+     * 
+     * @param reportPriceExtend
+     * @return int
+     *
+     * @author zwq
+     * @date 2017年10月16日
+     */
+    int updateReportPriceExtend(ReportPriceExtendDO reportPriceExtend);
 }

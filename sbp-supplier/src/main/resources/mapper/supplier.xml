@@ -3,7 +3,7 @@
 <mapper namespace="com.wq.sbp.dao.SupplierDao">
 	<!-- 只查经营品牌集合 -->
 	<select id="listCarBrandId" resultType="int">
-		SELECT
+		SELECT DISTINCT
 			car_brand_id
 		FROM
 			ibs_supplier
@@ -21,7 +21,7 @@
 		</foreach>
 	</insert>
 	
-	<select id="listSupplier" resultType="Supplier">
+	<select id="listSupplier" resultType="SupplierDO">
 		SELECT DISTINCT
 			sup.car_brand_id carBrandId,
 			sup.store_id storeId,

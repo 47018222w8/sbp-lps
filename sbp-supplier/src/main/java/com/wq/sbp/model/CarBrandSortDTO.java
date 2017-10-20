@@ -7,13 +7,28 @@ import java.util.List;
  *
  *
  * @author zwq
- * @since 2017年9月20日
+ * @date 2017年9月20日
  */
 public class CarBrandSortDTO {
 
+    /**
+     * 字母
+     * 
+     * @author zwq
+     */
     private Character character;
 
-    private List<CarBrand> carBrandList;
+    /**
+     * 品牌列表
+     * 
+     * @author zwq
+     */
+    private List<CarBrandDO> carBrandList;
+
+    @Override
+    public String toString() {
+        return "CarBrandSortDTO [character=" + character + ", carBrandList=" + carBrandList + "]";
+    }
 
     public Character getCharacter() {
         return character;
@@ -23,11 +38,11 @@ public class CarBrandSortDTO {
         this.character = character;
     }
 
-    public List<CarBrand> getCarBrandList() {
+    public List<CarBrandDO> getCarBrandList() {
         return carBrandList;
     }
 
-    public void setCarBrandList(List<CarBrand> carBrandList) {
+    public void setCarBrandList(List<CarBrandDO> carBrandList) {
         this.carBrandList = carBrandList;
     }
 

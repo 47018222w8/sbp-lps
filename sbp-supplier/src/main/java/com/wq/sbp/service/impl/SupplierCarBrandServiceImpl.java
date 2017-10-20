@@ -5,19 +5,26 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.sbp.common.model.CommonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.wq.sbp.common.constants.Constants;
 import com.wq.sbp.dao.SupplierDao;
 import com.wq.sbp.model.CarBrandSortDTO;
-import com.wq.sbp.model.Supplier;
+import com.wq.sbp.model.SupplierDO;
 import com.wq.sbp.service.CarBrandServcie;
 import com.wq.sbp.service.SupplierService;
 
+/**
+ * 车型件处理
+ * 
+ *
+ * @author zwq
+ * @date 2017年10月16日
+ */
 @Service
-public class SupplierServiceImpl implements SupplierService {
+public class SupplierCarBrandServiceImpl implements SupplierService<SupplierDO> {
 
     @Autowired
     private SupplierDao supplierDao;
@@ -26,15 +33,16 @@ public class SupplierServiceImpl implements SupplierService {
     private CarBrandServcie carBrandServcie;
 
     @Override
-    public void saveSupplier(Supplier sup) {
+    public void saveSupplier(SupplierDO sup) {
         List<Integer> newList = sup.getCarBrandIdList();
         List<Integer> oldList = supplierDao.listCarBrandId(sup);
         // 1. 取出数据库中不存在的,插入数据库
         @SuppressWarnings("unchecked")
-        List<Integer> resultList = new ArrayList<>(CollectionUtils.subtract(newList, oldList));// 差集
-        List<Supplier> saveList = new LinkedList<>();
+        // 差集
+        List<Integer> resultList = new ArrayList<>(CollectionUtils.subtract(newList, oldList));
+        List<SupplierDO> saveList = new LinkedList<>();
         for (Integer carBrandId : resultList) {
-            Supplier s = new Supplier();
+            SupplierDO s = new SupplierDO();
             s.setCarBrandId(carBrandId);
             s.setMemberId(sup.getMemberId());
             s.setStoreId(sup.getStoreId());
@@ -43,8 +51,9 @@ public class SupplierServiceImpl implements SupplierService {
         supplierDao.saveSupplierList(saveList);
         // 2. 取出数据库已存在的更新flag为1
         @SuppressWarnings("unchecked")
-        List<Integer> resultList1 = new ArrayList<>(CollectionUtils.intersection(newList, oldList));// 交集
-        Supplier s = new Supplier();
+        // 交集
+        List<Integer> resultList1 = new ArrayList<>(CollectionUtils.intersection(newList, oldList));
+        SupplierDO s = new SupplierDO();
         s.setMemberId(sup.getMemberId());
         s.setFlag("1");
         s.setStoreId(sup.getStoreId());
@@ -55,23 +64,25 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public ResponseEntity<?> listCarBrandNotOperate(Supplier sup) {
+    public ResponseEntity<?> listCarBrandNotOperate(SupplierDO sup) {
         List<CarBrandSortDTO> list = carBrandServcie.listCarBrandGroupByLetter();
         List<Integer> ids = supplierDao.listCarBrandId(sup);
-        list.forEach(dto -> dto.getCarBrandList().removeIf(item -> ids.contains(item.getCarBrandId())));// 去除已经营的品牌
-        list.removeIf(item -> item.getCarBrandList() == null || item.getCarBrandList().isEmpty());// 去除不含品牌的首字母
+        // 去除已经营的品牌
+        list.forEach(dto -> dto.getCarBrandList().removeIf(item -> ids.contains(item.getCarBrandId())));
+        // 去除不含品牌的首字母
+        list.removeIf(item -> item.getCarBrandList() == null || item.getCarBrandList().isEmpty());
         return ResponseEntity.ok(list);
     }
 
     @Override
-    public List<Supplier> listSupplier(Supplier sup) {
-        sup.setParam1(Constants.EAUTO100_IMG_VISIT);
-        sup.setParam2(Constants.EAUTO100_IMG_SAVE);
+    public List<SupplierDO> listSupplier(SupplierDO sup) {
+        sup.setParam1(CommonConstants.EAUTO100_IMG_VISIT);
+        sup.setParam2(CommonConstants.EAUTO100_IMG_SAVE);
         return supplierDao.listSupplier(sup);
     }
 
     @Override
-    public int updateSupplierList(Supplier sup) {
+    public int updateSupplierList(SupplierDO sup) {
         return supplierDao.updateSupplier(sup);
     }
 }

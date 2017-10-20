@@ -10,16 +10,15 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import com.wq.sbp.common.constants.Constants;
-import com.wq.sbp.common.util.Sender;
 import com.wq.sbp.service.CarBrandServcie;
 import com.wq.sbp.service.PropertyService;
 
 /**
  * 启动加载
- *
+ * 
  *
  * @author zwq
- * @since 2017年7月31日
+ * @date 2017年10月16日
  */
 @Component
 public class StartUpRunner implements CommandLineRunner {
@@ -35,14 +34,8 @@ public class StartUpRunner implements CommandLineRunner {
     @Autowired
     private CarBrandServcie carBrandServcie;
 
-    @Autowired
-    private Sender send;
-
     @Override
     public void run(String... arg0) throws Exception {
-        send.send();
-        send.send1();
-        send.send2();
         redisTemplate.delete(Constants.CACHE_QUALITY_PROPERTY);
         propertyServcie.listPropertyLJPJ();
         log.info("缓存零件品质结束");

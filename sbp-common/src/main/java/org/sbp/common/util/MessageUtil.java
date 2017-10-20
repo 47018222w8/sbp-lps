@@ -13,18 +13,19 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.sbp.common.model.Constants;
+import org.sbp.common.model.CommonResult;
 import org.sbp.common.model.TemplateMessage;
+import org.sbp.common.model.WechatConstants;
 
 import com.alibaba.fastjson.JSON;
 
 public class MessageUtil {
 
-    public static String sendWXTemplateMessage(TemplateMessage tm) throws ClientProtocolException, IOException {
-        String sign = MD5Util.md5(Constants.TEMPLATE_MESSAGE_SECRET + tm.getTouser() + LocalTime.now().getHour());
+    public static CommonResult sendWXTemplateMessage(TemplateMessage tm) throws ClientProtocolException, IOException {
+        String sign = MD5Util.md5(WechatConstants.TEMPLATE_MESSAGE_SECRET + tm.getTouser() + LocalTime.now().getHour());
         CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(RequestConfig.custom()
                 .setConnectionRequestTimeout(2000).setConnectTimeout(2000).setSocketTimeout(2000).build()).build();
-        HttpPost httpPost = new HttpPost(Constants.WX_TEMPLATE_MESSAGE_URL + "?sign=" + sign);
+        HttpPost httpPost = new HttpPost(WechatConstants.WECHAT_TEMPLATE_MESSAGE_URL + "?sign=" + sign);
         httpPost.setEntity(new StringEntity(JSON.toJSONString(tm), Charset.forName("UTF-8")));
         httpPost.setHeader("Content-Type", "application/json;charset=UTF-8");
         CloseableHttpResponse response2 = httpclient.execute(httpPost);
@@ -33,10 +34,10 @@ public class MessageUtil {
             HttpEntity entity2 = response2.getEntity();
             EntityUtils.consume(entity2);
             if (statusCode == 200) {
-                return "";
+                return new CommonResult().setSuccess(true);
             }
             else {
-                return EntityUtils.toString(entity2);
+                return new CommonResult().setSuccess(false).setMssage(EntityUtils.toString(entity2));
             }
         }
         finally {

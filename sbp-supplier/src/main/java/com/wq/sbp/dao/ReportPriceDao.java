@@ -4,17 +4,48 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.wq.sbp.model.ReportPrice;
-import com.wq.sbp.model.ReportPriceInfo;
+import com.wq.sbp.model.ReportPriceDO;
 
+/**
+ * ReportPriceDao
+ * 
+ * @author zwq
+ * @date 2017年10月16日
+ */
 @Mapper
 public interface ReportPriceDao {
 
-    List<ReportPrice> listReportPrice(ReportPrice rp);
+    /**
+     * 所属该供应商的报价单中的零件
+     * 
+     * @param reportPrice state
+     * @return list
+     *
+     * @author zwq
+     * @date 2017年10月16日
+     */
+    List<ReportPriceDO> listReportPrice(ReportPriceDO reportPrice);
 
-    int saveReportPriceInfo(List<ReportPriceInfo> list);
 
-    int updateReportPriceById(ReportPrice rp);
+    /**
+     * 更新
+     * 
+     * @param reportPrice
+     * @return int 
+     *
+     * @author zwq
+     * @date 2017年10月16日
+     */
+    int updateReportPriceById(ReportPriceDO reportPrice);
 
+    /**
+     * 删除
+     * 
+     * @param reportPriceId
+     * @return int
+     *
+     * @author zwq
+     * @date 2017年10月16日
+     */
     int removeReportPriceInfoByRPIId(Integer reportPriceId);
 }

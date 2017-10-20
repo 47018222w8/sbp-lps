@@ -14,8 +14,14 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.alibaba.fastjson.JSON;
 import com.wq.sbp.common.constants.Constants;
 import com.wq.sbp.model.ErrorEnum;
-import com.wq.sbp.model.ErrorVO;
+import com.wq.sbp.model.ErrorDTO;
 
+/**
+ * 拦截器 目前主要是验证jwt
+ * 
+ * @author zwq
+ * @date 2017年10月16日
+ */
 public class GlobalInterceptor extends HandlerInterceptorAdapter {
 
     private Logger logger = LoggerFactory.getLogger(GlobalInterceptor.class);
@@ -33,7 +39,7 @@ public class GlobalInterceptor extends HandlerInterceptorAdapter {
             response.setContentType("application/json; charset=utf-8");
             response.setStatus(ErrorEnum.AUTHORIZATION_EXPIRED.getHttpStatusCode());
             PrintWriter pw = response.getWriter();
-            pw.append(JSON.toJSONString(new ErrorVO(ErrorEnum.AUTHORIZATION_EXPIRED)));
+            pw.append(JSON.toJSONString(new ErrorDTO(ErrorEnum.AUTHORIZATION_EXPIRED)));
             return false;
         }
         return true;

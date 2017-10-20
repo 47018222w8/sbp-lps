@@ -5,44 +5,64 @@ import java.util.List;
 
 /**
  * IbsReportPrice 实体类
- * 2017-08-31
+ * 
+ * @date 2017-08-31
+ * @author zwq
  */
-public class ReportPrice {
+public class ReportPriceDO {
 
-    // 这家伙很懒,没有留下注释
     private Integer id;
 
-    // 定损单ID
+    /**
+     * 询价单ID
+     * 
+     * @author zwq
+     */
     private Integer insId;
 
-    // ibs_insurance_info中id
+    /**
+     * ibs_insurance_info中id
+     * 
+     * @author zwq
+     */
     private Integer insInfoId;
 
-    // 报价金额
+    /**
+     * 报价金额
+     * 
+     * @author zwq
+     */
     private BigDecimal price;
 
-    // 供应商id
     private Integer supplierId;
 
-    // 状态0:未报价 1:已过期 2:已报价 3中标 4已发货
+    /**
+     * 状态0:未报价 1:已过期 2:已报价 3中标 4已发货
+     * 
+     * @author zwq
+     */
     private String state;
 
-    // 报价时间(精确到时分秒)
     private Long reportTime;
 
-    // 创建日期(精确到时分秒)
     private Long createTime;
 
-    // member_id
+    /**
+     * 供应商memberId
+     * 
+     * @author zwq
+     */
     private Integer memberId;
 
-    // 流程类型
     private Integer processType;
 
-    // 目标价
     private BigDecimal targetPrice;
 
-    // 是否经营该产品（0: 经营 1:不经营 ， 默认是0 ）
+    /**
+     * 是否经营该产品0: 经营 1:不经营 ， 默认是0(历史遗留问题)
+     * 
+     * @author zwq
+     */
     private String isOperProd;
 
     private String img;
@@ -55,10 +75,19 @@ public class ReportPrice {
 
     private String img4;
 
-    // 部件名称
+    /**
+     * 零件名称
+     * 
+     * @author zwq
+     */
     private String name;
 
-    private List<ReportPriceInfo> listRPI;
+    /**
+     * 具体报价列表
+     * 
+     * @author zwq
+     */
+    private List<ReportPriceInfoDO> listRPI;
 
     public Integer getId() {
         return id;
@@ -104,11 +133,11 @@ public class ReportPrice {
         this.img4 = img4;
     }
 
-    public List<ReportPriceInfo> getListRPI() {
+    public List<ReportPriceInfoDO> getListRPI() {
         return listRPI;
     }
 
-    public void setListRPI(List<ReportPriceInfo> listRPI) {
+    public void setListRPI(List<ReportPriceInfoDO> listRPI) {
         this.listRPI = listRPI;
     }
 
@@ -228,6 +257,48 @@ public class ReportPrice {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "ReportPriceDO [id=" + id
+                + ", insId="
+                + insId
+                + ", insInfoId="
+                + insInfoId
+                + ", price="
+                + price
+                + ", supplierId="
+                + supplierId
+                + ", state="
+                + state
+                + ", reportTime="
+                + reportTime
+                + ", createTime="
+                + createTime
+                + ", memberId="
+                + memberId
+                + ", processType="
+                + processType
+                + ", targetPrice="
+                + targetPrice
+                + ", isOperProd="
+                + isOperProd
+                + ", img="
+                + img
+                + ", img1="
+                + img1
+                + ", img2="
+                + img2
+                + ", img3="
+                + img3
+                + ", img4="
+                + img4
+                + ", name="
+                + name
+                + ", listRPI="
+                + listRPI
+                + "]";
     }
 
 }

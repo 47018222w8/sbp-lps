@@ -1,115 +1,191 @@
 package com.wq.sbp.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 /**
  * IbsReportPriceExtend 实体类
- * 2017-08-18
+ * 
+ * @date 2017-08-18
+ * @author zwq
  */
-public class ReportPriceExtend {
+public class ReportPriceExtendDO {
 
-    // 主键 自增序列
     private Integer id;
 
-    // 询价单id
+    /**
+     * 询价单id
+     * 
+     * @author zwq
+     */
     private Integer insId;
 
-    // 供应商id
     private Integer supplierId;
 
-    // 供应商会员Id
+    /**
+     * 供应商memberId
+     * 
+     * @author zwq
+     */
     private Integer supplierMemberId;
 
-    // 询价方id（维修厂会员ID）
+    /**
+     * 维修厂memberId(历史遗留问题)
+     * 
+     * @author zwq
+     */
     private Integer memberId;
 
-    // 物流费用
+    /**
+     * 物流费用
+     * 
+     * @author zwq
+     */
     private BigDecimal expressMoney;
 
-    // 备注
+    /**
+     * 备注
+     * 
+     * @author zwq
+     */
     private String remark;
 
-    // 税率
+    /**
+     * 税率
+     * 
+     * @author zwq
+     */
     private Integer taxRate;
 
-    // 状态: 0.未报价，1.已报价
+    /**
+     * 状态: 0.未报价，1.已报价
+     * 
+     * @author zwq
+     */
     private Integer reportState;
 
-    // 报价截止时间
-    private Date quoteDeadline;
+    /**
+     * 报价截止时间
+     * 
+     * @author zwq
+     */
+    private String quoteDeadline;
 
-    // 发送询价时间
-    private Date createDate;
+    /**
+     * 询价时间
+     * 
+     * @author zwq
+     */
+    private String createDate;
 
-    // 最后一次修改时间
-    private Date gmtModify;
+    /**
+     * 最后一次修改时间
+     * 
+     * @author zwq
+     */
+    private String gmtModify;
 
-    // 报价时间
-    private Date gmtQuote;
+    /**
+     * 报价时间
+     * 
+     * @author zwq
+     */
+    private String gmtQuote;
 
-    // 下单时间
-    private Date gmtOrder;
+    /**
+     * 下单时间
+     * 
+     * @author zwq
+     */
+    private String gmtOrder;
 
-    // 是否发送语音提醒成功
+    /**
+     * 是否发送语音提醒成功
+     * 
+     * @author zwq
+     */
     private String isVoice;
 
-    // 供应商类型0:品牌1:专项件
+    /**
+     * 供应商类型0:品牌1:专项件
+     * 
+     * @author zwq
+     */
     private String supType;
 
-    // 自动语音提醒次数
-    private String autoVoiceCount;
+    /**
+     * 自动语音提醒次数
+     * 
+     * @author zwq
+     */
+    private Integer autoVoiceCount;
 
-    // 是否已经查看0:否,1:是
+    /**
+     * 是否已经查看0:否,1:是
+     * 
+     * @author zwq
+     */
     private Integer isRead;
 
-    List<ReportPrice> listRP;
+    /**
+     * 供应商零件列表
+     * 
+     * @author zwq
+     */
+    List<ReportPriceDO> listRP;
 
-    // 符号0:小于1:大于
+    /**
+     * 符号0:小于1:大于
+     * 
+     * @author zwq
+     */
     private Integer mark;
 
-    private String[] insReportStates;
-
-    private String insReportStatesStr;
-
-    private String param1;
-
-    private String param2;
-
-    public String getInsReportStatesStr() {
-        return insReportStatesStr;
+    @Override
+    public String toString() {
+        return "ReportPriceExtendDO [id=" + id
+                + ", insId="
+                + insId
+                + ", supplierId="
+                + supplierId
+                + ", supplierMemberId="
+                + supplierMemberId
+                + ", memberId="
+                + memberId
+                + ", expressMoney="
+                + expressMoney
+                + ", remark="
+                + remark
+                + ", taxRate="
+                + taxRate
+                + ", reportState="
+                + reportState
+                + ", quoteDeadline="
+                + quoteDeadline
+                + ", createDate="
+                + createDate
+                + ", gmtModify="
+                + gmtModify
+                + ", gmtQuote="
+                + gmtQuote
+                + ", gmtOrder="
+                + gmtOrder
+                + ", isVoice="
+                + isVoice
+                + ", supType="
+                + supType
+                + ", autoVoiceCount="
+                + autoVoiceCount
+                + ", isRead="
+                + isRead
+                + ", listRP="
+                + listRP
+                + ", mark="
+                + mark
+                + "]";
     }
 
-    public void setInsReportStatesStr(String insReportStatesStr) {
-        this.insReportStatesStr = insReportStatesStr;
-    }
-
-    public String getParam1() {
-        return param1;
-    }
-
-    public void setParam1(String parm1) {
-        this.param1 = parm1;
-    }
-
-    public String getParam2() {
-        return param2;
-    }
-
-    public void setParam2(String param2) {
-        this.param2 = param2;
-    }
-
-    public String[] getInsReportStates() {
-        return insReportStates;
-    }
-
-    public void setInsReportStates(String[] insReportStates) {
-        this.insReportStates = insReportStates;
-    }
-
-    public List<ReportPrice> getListRP() {
+    public List<ReportPriceDO> getListRP() {
         return listRP;
     }
 
@@ -129,26 +205,22 @@ public class ReportPriceExtend {
         this.isRead = isRead;
     }
 
-    public void setListRP(List<ReportPrice> listRP) {
+    public void setListRP(List<ReportPriceDO> listRP) {
         this.listRP = listRP;
     }
 
-    /**
-     * 主键 自增序列
-     */
     public void setId(Integer id) {
         this.id = id;
     }
 
-    /**
-     * 主键 自增序列
-     */
     public Integer getId() {
         return id;
     }
 
     /**
      * 询价单id
+     * 
+     * @author zwq
      */
     public void setInsId(Integer insId) {
         this.insId = insId;
@@ -156,6 +228,8 @@ public class ReportPriceExtend {
 
     /**
      * 询价单id
+     * 
+     * @author zwq
      */
     public Integer getInsId() {
         return insId;
@@ -163,6 +237,8 @@ public class ReportPriceExtend {
 
     /**
      * 供应商id
+     * 
+     * @author zwq
      */
     public void setSupplierId(Integer supplierId) {
         this.supplierId = supplierId;
@@ -170,6 +246,8 @@ public class ReportPriceExtend {
 
     /**
      * 供应商id
+     * 
+     * @author zwq
      */
     public Integer getSupplierId() {
         return supplierId;
@@ -177,6 +255,8 @@ public class ReportPriceExtend {
 
     /**
      * 供应商会员Id
+     * 
+     * @author zwq
      */
     public void setSupplierMemberId(Integer supplierMemberId) {
         this.supplierMemberId = supplierMemberId;
@@ -184,6 +264,8 @@ public class ReportPriceExtend {
 
     /**
      * 供应商会员Id
+     * 
+     * @author zwq
      */
     public Integer getSupplierMemberId() {
         return supplierMemberId;
@@ -191,6 +273,8 @@ public class ReportPriceExtend {
 
     /**
      * 询价方id（维修厂会员ID）
+     * 
+     * @author zwq
      */
     public void setMemberId(Integer memberId) {
         this.memberId = memberId;
@@ -198,6 +282,8 @@ public class ReportPriceExtend {
 
     /**
      * 询价方id（维修厂会员ID）
+     * 
+     * @author zwq
      */
     public Integer getMemberId() {
         return memberId;
@@ -205,6 +291,8 @@ public class ReportPriceExtend {
 
     /**
      * 物流费用
+     * 
+     * @author zwq
      */
     public void setExpressMoney(BigDecimal expressMoney) {
         this.expressMoney = expressMoney;
@@ -212,6 +300,8 @@ public class ReportPriceExtend {
 
     /**
      * 物流费用
+     * 
+     * @author zwq
      */
     public BigDecimal getExpressMoney() {
         return expressMoney;
@@ -219,6 +309,8 @@ public class ReportPriceExtend {
 
     /**
      * 备注
+     * 
+     * @author zwq
      */
     public void setRemark(String remark) {
         this.remark = remark;
@@ -226,6 +318,8 @@ public class ReportPriceExtend {
 
     /**
      * 备注
+     * 
+     * @author zwq
      */
     public String getRemark() {
         return remark;
@@ -233,6 +327,8 @@ public class ReportPriceExtend {
 
     /**
      * 税率
+     * 
+     * @author zwq
      */
     public void setTaxRate(Integer taxRate) {
         this.taxRate = taxRate;
@@ -240,6 +336,8 @@ public class ReportPriceExtend {
 
     /**
      * 税率
+     * 
+     * @author zwq
      */
     public Integer getTaxRate() {
         return taxRate;
@@ -247,6 +345,8 @@ public class ReportPriceExtend {
 
     /**
      * 状态: 0.未报价，1.已报价
+     * 
+     * @author zwq
      */
     public void setReportState(Integer reportState) {
         this.reportState = reportState;
@@ -254,6 +354,8 @@ public class ReportPriceExtend {
 
     /**
      * 状态: 0.未报价，1.已报价
+     * 
+     * @author zwq
      */
     public Integer getReportState() {
         return reportState;
@@ -261,76 +363,98 @@ public class ReportPriceExtend {
 
     /**
      * 报价截止时间
+     * 
+     * @author zwq
      */
-    public void setQuoteDeadline(Date quoteDeadline) {
+    public void setQuoteDeadline(String quoteDeadline) {
         this.quoteDeadline = quoteDeadline;
     }
 
     /**
      * 报价截止时间
+     * 
+     * @author zwq
      */
-    public Date getQuoteDeadline() {
+    public String getQuoteDeadline() {
         return quoteDeadline;
     }
 
     /**
      * 发送询价时间
+     * 
+     * @author zwq
      */
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
     /**
      * 发送询价时间
+     * 
+     * @author zwq
      */
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
     /**
      * 最后一次修改时间
+     * 
+     * @author zwq
      */
-    public void setGmtModify(Date gmtModify) {
+    public void setGmtModify(String gmtModify) {
         this.gmtModify = gmtModify;
     }
 
     /**
      * 最后一次修改时间
+     * 
+     * @author zwq
      */
-    public Date getGmtModify() {
+    public String getGmtModify() {
         return gmtModify;
     }
 
     /**
      * 报价时间
+     * 
+     * @author zwq
      */
-    public void setGmtQuote(Date gmtQuote) {
+    public void setGmtQuote(String gmtQuote) {
         this.gmtQuote = gmtQuote;
     }
 
     /**
      * 报价时间
+     * 
+     * @author zwq
      */
-    public Date getGmtQuote() {
+    public String getGmtQuote() {
         return gmtQuote;
     }
 
     /**
      * 下单时间
+     * 
+     * @author zwq
      */
-    public void setGmtOrder(Date gmtOrder) {
+    public void setGmtOrder(String gmtOrder) {
         this.gmtOrder = gmtOrder;
     }
 
     /**
      * 下单时间
+     * 
+     * @author zwq
      */
-    public Date getGmtOrder() {
+    public String getGmtOrder() {
         return gmtOrder;
     }
 
     /**
      * 是否发送语音提醒成功
+     * 
+     * @author zwq
      */
     public void setIsVoice(String isVoice) {
         this.isVoice = isVoice;
@@ -338,6 +462,8 @@ public class ReportPriceExtend {
 
     /**
      * 是否发送语音提醒成功
+     * 
+     * @author zwq
      */
     public String getIsVoice() {
         return isVoice;
@@ -345,6 +471,8 @@ public class ReportPriceExtend {
 
     /**
      * 供应商类型0:品牌1:专项件
+     * 
+     * @author zwq
      */
     public void setSupType(String supType) {
         this.supType = supType;
@@ -352,6 +480,8 @@ public class ReportPriceExtend {
 
     /**
      * 供应商类型0:品牌1:专项件
+     * 
+     * @author zwq
      */
     public String getSupType() {
         return supType;
@@ -359,15 +489,19 @@ public class ReportPriceExtend {
 
     /**
      * 自动语音提醒次数
+     * 
+     * @author zwq
      */
-    public void setAutoVoiceCount(String autoVoiceCount) {
+    public void setAutoVoiceCount(Integer autoVoiceCount) {
         this.autoVoiceCount = autoVoiceCount;
     }
 
     /**
      * 自动语音提醒次数
+     * 
+     * @author zwq
      */
-    public String getAutoVoiceCount() {
+    public Integer getAutoVoiceCount() {
         return autoVoiceCount;
     }
 

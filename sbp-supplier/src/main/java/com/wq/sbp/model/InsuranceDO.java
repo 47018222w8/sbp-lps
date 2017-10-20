@@ -4,115 +4,318 @@ import java.util.List;
 
 /**
  * IbsInsurance 实体类
- * 2017-08-22
+ * 
+ * @author zwq
  */
-public class Insurance {
+public class InsuranceDO {
 
-    // id
     private Integer id;
 
     private Long createDate;
 
-    // 流水单号（系统自动生成11位流水单号）格式YYMMDD00001自增
+    /**
+     * 流水单号（系统自动生成11位流水单号）格式YYMMDD00001自增
+     * 
+     * @author zwq
+     */
     private String insNo;
 
-    // 保险公司小流水格式YYMMDD+保险公司ID+自增序列
     private String insNoCompany;
 
-    // 车牌号码
+    /**
+     * 车牌号码
+     * 
+     * @author zwq
+     */
     private String carNo;
 
-    // 车架号（VIN）
+    /**
+     * 车架号
+     * 
+     * @author zwq
+     */
     private String vin;
 
-    // 自定义车型标志
+    /**
+     * 车型名称
+     * 
+     * @auto zwq
+     */
     private String carMark;
 
-    // 修理厂名称
+    /**
+     * 修理厂名称
+     * 
+     * @author zwq
+     */
     private String repairName;
 
-    // 是否处理:0.未处理,1.已处理,默认为0
+    /**
+     * 是否处理:0.未处理,1.已处理,默认为0
+     * 
+     * @author zwq
+     */
     private Integer isProcess;
 
-    // 登录人id
+    /**
+     * 登录人id
+     * 
+     * @author zwq
+     */
     private Integer repairId;
 
-    // 0:未询价，1:询价中，2:已报价，10:已生成订单
+    /**
+     * 0:未询价，1:询价中，2:已报价，10:已生成订单
+     * 
+     * @author zwq
+     */
     private String reportState;
 
-    // 配件需求单类型
+    /**
+     * 询价单类型
+     * 
+     * @author zwq
+     */
     private Integer insType;
 
-    // 需求单来源 1：普通保险 2：维修厂
     private String insSource;
 
-    // 保险公司ID
     private Integer insCompanyId;
 
-    // 流程类型
     private Integer processType;
 
-    // 对应t_receive_car id
     private Integer carBrandId;
 
-    // 对应t_receive_car id
     private Integer receiveCarId;
 
-    // 对应es_carline
     private Integer carLineId;
 
-    // 对应es_car
     private Integer carId;
 
-    // 新版询价中要求到货时间
+    /**
+     * 要求到货时间
+     * 
+     * @author zwq
+     */
     private Integer arriveTime;
 
-    // 是否需要发票 1需要 0 不需要
+    /**
+     * 是否需要发票 1需要 0 不需要
+     * 
+     * @author zwq
+     */
     private String invoice;
 
-    // es_member_address id
+    /**
+     * es_member_address id
+     * 
+     * @author zwq
+     */
     private Integer addrId;
 
-    // 下单是备注信息
+    /**
+     * 下单是备注信息
+     * 
+     * @author zwq
+     */
     private String orderRemark;
 
-    // 语音提醒可用次数
+    /**
+     * 语音提醒可用次数
+     * 
+     * @author zwq
+     */
     private String voiceCount;
 
-    // 微信提醒可用次数
+    /**
+     * 微信提醒可用次数
+     * 
+     * @author zwq
+     */
     private String wxCount;
 
-    List<InsuranceInfo> list;
+    /**
+     * 零件列
+     * 
+     * @author zwq
+     */
+    List<InsuranceInfoDO> list;
 
     private String parm1;
 
     private String parm2;
 
+    /**
+     * 品牌名称
+     * 
+     * @author zwq
+     */
     private String carBrandName;
 
+    /**
+     * 维修厂名称
+     * 
+     * @author zwq
+     */
     private String entMemberName;
 
+    /**
+     * 维修厂联系电话
+     * 
+     * @author zwq
+     */
     private String contactMobile;
 
     private String address;
 
+    /**
+     * 行车证
+     * 
+     * @author zwq
+     */
     private String driveLicense;
 
+    /**
+     * 车头照片
+     * 
+     * @author zwq
+     */
     private String frontImg;
 
+    /**
+     * 车尾照片
+     * 
+     * @author zwq
+     */
     private String rearImg;
 
+    /**
+     * 静态资源头
+     * 
+     * @author zwq
+     */
     private String domain;
 
-    private int partCount;
+    /**
+     * 零件个数
+     * 
+     * @author zwq
+     */
+    private Integer partCount;
 
+    /**
+     * 零件名称
+     * 
+     * @author zwq
+     */
     private String partName;
 
+    /**
+     * 品牌图
+     * 
+     * @author zwq
+     */
     private String brandLogo;
 
+    /**
+     * 是否已读
+     * 
+     * @author zwq
+     */
     private Integer isRead;
 
+    /**
+     * 询价时间
+     * 
+     * @author zwq
+     */
     private String askTimeStr;
+
+    @Override
+    public String toString() {
+        return "InsuranceDO [id=" + id
+                + ", createDate="
+                + createDate
+                + ", insNo="
+                + insNo
+                + ", insNoCompany="
+                + insNoCompany
+                + ", carNo="
+                + carNo
+                + ", vin="
+                + vin
+                + ", carMark="
+                + carMark
+                + ", repairName="
+                + repairName
+                + ", isProcess="
+                + isProcess
+                + ", repairId="
+                + repairId
+                + ", reportState="
+                + reportState
+                + ", insType="
+                + insType
+                + ", insSource="
+                + insSource
+                + ", insCompanyId="
+                + insCompanyId
+                + ", processType="
+                + processType
+                + ", carBrandId="
+                + carBrandId
+                + ", receiveCarId="
+                + receiveCarId
+                + ", carLineId="
+                + carLineId
+                + ", carId="
+                + carId
+                + ", arriveTime="
+                + arriveTime
+                + ", invoice="
+                + invoice
+                + ", addrId="
+                + addrId
+                + ", orderRemark="
+                + orderRemark
+                + ", voiceCount="
+                + voiceCount
+                + ", wxCount="
+                + wxCount
+                + ", list="
+                + list
+                + ", parm1="
+                + parm1
+                + ", parm2="
+                + parm2
+                + ", carBrandName="
+                + carBrandName
+                + ", entMemberName="
+                + entMemberName
+                + ", contactMobile="
+                + contactMobile
+                + ", address="
+                + address
+                + ", driveLicense="
+                + driveLicense
+                + ", frontImg="
+                + frontImg
+                + ", rearImg="
+                + rearImg
+                + ", domain="
+                + domain
+                + ", partCount="
+                + partCount
+                + ", partName="
+                + partName
+                + ", brandLogo="
+                + brandLogo
+                + ", isRead="
+                + isRead
+                + ", askTimeStr="
+                + askTimeStr
+                + "]";
+    }
 
     public String getAskTimeStr() {
         return askTimeStr;
@@ -138,11 +341,11 @@ public class Insurance {
         this.brandLogo = brandLogo;
     }
 
-    public int getPartCount() {
+    public Integer getPartCount() {
         return partCount;
     }
 
-    public void setPartCount(int partCount) {
+    public void setPartCount(Integer partCount) {
         this.partCount = partCount;
     }
 
@@ -434,11 +637,11 @@ public class Insurance {
         this.wxCount = wxCount;
     }
 
-    public List<InsuranceInfo> getList() {
+    public List<InsuranceInfoDO> getList() {
         return list;
     }
 
-    public void setList(List<InsuranceInfo> list) {
+    public void setList(List<InsuranceInfoDO> list) {
         this.list = list;
     }
 

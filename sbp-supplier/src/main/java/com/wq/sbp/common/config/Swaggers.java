@@ -21,11 +21,15 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * 用来做接口文档的
+ * 
+ * @author zwq
+ * @date 2017年10月16日
+ */
 @Configuration
 @EnableSwagger2
 public class Swaggers {
-
-    
 
     @Bean
     public Docket createRestApi() {
@@ -34,12 +38,18 @@ public class Swaggers {
             @Override
             public boolean apply(RequestHandler input) {
                 Class<?> declaringClass = input.declaringClass();
-                if (declaringClass == BasicErrorController.class)// 排除
+                // 排除
+                if (declaringClass == BasicErrorController.class) {
                     return false;
-                if (declaringClass.isAnnotationPresent(RestController.class)) // 被注解的类
+                }
+                //  被注解的类
+                if (declaringClass.isAnnotationPresent(RestController.class)) { 
                     return true;
-                if (input.isAnnotatedWith(ResponseBody.class)) // 被注解的方法
+                }
+                // 被注解的方法
+                if (input.isAnnotatedWith(ResponseBody.class)) {
                     return true;
+                }
                 return false;
             }
         };
@@ -47,14 +57,12 @@ public class Swaggers {
         List<Parameter> pars = new ArrayList<Parameter>();
         tokenPar.name("Authorization").description("令牌").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
         pars.add(tokenPar.build());
-        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).useDefaultResponseMessages(false).select().apis(predicate)
-                .build().globalOperationParameters(pars);
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).useDefaultResponseMessages(false).select().apis(predicate).build()
+                .globalOperationParameters(pars);
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("包含媒体、咨询、搜索引擎关键字、广告等类型接口的服务")// 大标题
-                .version("1.0")// 版本
-                .build();
+        return new ApiInfoBuilder().title("找件儿--供应商接口文档").version("1.0").build();
     }
 
 }

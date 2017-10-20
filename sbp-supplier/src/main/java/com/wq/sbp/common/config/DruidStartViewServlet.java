@@ -5,7 +5,13 @@ import javax.servlet.annotation.WebServlet;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.wq.sbp.common.constants.Constants;
-
+/**
+ * druid servlet
+ *
+ *
+ * @author zwq
+ * @since 2017年10月16日
+ */
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = "/druid/*",
             initParams = { @WebInitParam(name = "loginUsername", value = Constants.ADMIN_ACOUNT),// 用户名

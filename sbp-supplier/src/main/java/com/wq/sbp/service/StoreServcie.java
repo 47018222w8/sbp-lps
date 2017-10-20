@@ -1,16 +1,24 @@
 package com.wq.sbp.service;
 
-import com.wq.sbp.model.Store;
+import com.wq.sbp.model.StoreDO;
 
+/**
+ * StoreServcie
+ * 
+ *
+ * @author zwq
+ * @date 2017年10月16日
+ */
 public interface StoreServcie {
 
     /**
+     * 获取单个
      * 
-     *
-     * @return
+     * @param store memberId
+     * @return StoreDO
      *
      * @author zwq
-     * @since 2017年9月19日
+     * @date 2017年10月16日
      */
-    Store getStore(Store store);
+    StoreDO getStore(StoreDO store);
 }

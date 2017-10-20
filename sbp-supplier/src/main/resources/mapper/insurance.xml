@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wq.sbp.dao.InsuranceDao">
- 	<select id="getInsurance" resultType="Insurance">
+ 	<select id="getInsurance" resultType="InsuranceDO">
  		SELECT
 			ii.car_mark 			carMark,
 			ecb.car_brand_name		carBrandName,
@@ -29,7 +29,7 @@
 	    AND 
 	    	ii.flag=1
  	</select>
- 	<select id="listInsurance" resultType="Insurance">
+ 	<select id="listInsurance" resultType="InsuranceDO">
  		SELECT
 	 		REPLACE (
 					ecb.brand_logo,
@@ -118,7 +118,7 @@
 			</foreach>
 		</if>
 	</select>
- 	<update id="updateInsuranceSelective">
+ 	<update id="updateInsurance">
  		UPDATE 
  			ibs_insurance
  		<set>

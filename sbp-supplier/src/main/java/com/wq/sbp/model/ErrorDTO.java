@@ -1,30 +1,50 @@
 package com.wq.sbp.model;
 
-public class ErrorVO {
+/**
+ * ErrorDTO
+ * 
+ *
+ * @author zwq
+ * @date 2017年10月16日
+ */
+public class ErrorDTO {
 
-    private int httpStatusCode;
+    /**
+     * HTTP 状态码
+     * 
+     * @author zwq
+     */
+    private Integer httpStatusCode;
 
-    // 错误信息
+    /**
+     * 错误信息
+     * 
+     * @author zwq
+     */
     private String message;
 
-    // 错误代码
+    /**
+     * 错误代码
+     * 
+     * @author zwq
+     */
     private String code;
 
-    public ErrorVO(ErrorEnum ee) {
+    public ErrorDTO(ErrorEnum ee) {
         this.code = ee.toString();
         this.message = ee.getMessage();
         this.httpStatusCode = ee.getHttpStatusCode();
     }
 
-    public ErrorVO() {
+    public ErrorDTO() {
 
     }
 
-    public int getHttpStatusCode() {
+    public Integer getHttpStatusCode() {
         return httpStatusCode;
     }
 
-    public void setHttpStatusCode(int httpStatusCode) {
+    public void setHttpStatusCode(Integer httpStatusCode) {
         this.httpStatusCode = httpStatusCode;
     }
 

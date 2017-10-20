@@ -7,6 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.wq.sbp.service.TaskService;
 
+/**
+ * 定时任务
+ * 
+ *
+ * @author zwq
+ * @date 2017年10月16日
+ */
 @Service
 public class TaskServiceImpl implements TaskService {
 
@@ -15,6 +22,5 @@ public class TaskServiceImpl implements TaskService {
     @Scheduled(fixedRate = 2000) // 每2秒执行
     @Override
     public void test() {
-        //log.info("second:" + LocalTime.now().getSecond());
     }
 }

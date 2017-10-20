@@ -18,27 +18,33 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.wq.sbp.Application;
 import com.wq.sbp.dao.MemberDao;
-import com.wq.sbp.model.Member;
+import com.wq.sbp.model.MemberDO;
 
-@RunWith(SpringJUnit4ClassRunner.class)// 自动创建spring应用的上下文
+/**
+ * web测试
+ * 
+ *
+ * @author zwq
+ * @date 2017年10月16日
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
-@WebAppConfiguration// web项目
-public class TestWeb {
+@WebAppConfiguration
+public class WebTest {
 
-    private MockMvc mockMvc; //
-
-    @Autowired
-    WebApplicationContext wac; //
+    private MockMvc mockMvc;
 
     @Autowired
-    MockHttpSession session; //
+    WebApplicationContext wac;
+
+    @Autowired
+    MockHttpSession session;
 
     @Autowired
     MemberDao memberDao;
 
     @Autowired
-    MockHttpServletRequest request; //
-
+    MockHttpServletRequest request;
 
     private String token;
 
@@ -47,19 +53,9 @@ public class TestWeb {
         mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).alwaysDo(print()).build();
     }
 
-
     @Test
-    public void testDao() {
-        Assert.assertNotNull(memberDao.getMember(new Member()));
+    public void daoTest() {
+        Assert.assertNotNull(memberDao.getMember(new MemberDO()));
     }
-
-    // @Test
-    // public void testLogin() throws Exception {
-    // MvcResult result = mockMvc.perform(post("/api/1.0/LPS/login/validate").param("uname", "众联安顺").param("password",
-    // "666666"))
-    // .andExpect(status().isOk()).andExpect(jsonPath("$.code").value(200)).andReturn();
-    // JSONObject jo = JSON.parseObject(result.getResponse().getContentAsString());
-    // token = jo.getString("data");
-    // }
 
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wq.sbp.dao.ReportPriceInfoDao">
+ 	
+	<insert id="saveReportPriceInfo">
+		INSERT INTO ibs_report_price_info ( report_price_id, report_price,
+	  	 	report_state, create_time, can_ship_date_bs, remark, is_quote)
+	  	VALUES
+  		<foreach collection="list" item="item" index="index" separator=",">
+  		  ( #{item.reportPriceId},#{item.reportPrice}, #{item.reportState}, 
+  		  UNIX_TIMESTAMP(), UNIX_TIMESTAMP(#{item.canShipDateBs}), #{item.remark}, 
+	      '1' )
+  		</foreach>
+	</insert> 	
+	
+</mapper>

@@ -4,9 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wq.sbp.dao.MemberDao;
-import com.wq.sbp.model.Member;
+import com.wq.sbp.model.MemberDO;
 import com.wq.sbp.service.MemberService;
-
+/**
+ * MemberServiceImpl
+ * 
+ *
+ * @author zwq
+ * @date 2017年10月16日
+ */
 @Service
 public class MemberServiceImpl implements MemberService {
 
@@ -14,7 +20,7 @@ public class MemberServiceImpl implements MemberService {
     private MemberDao memberDao;
 
     @Override
-    public Member getMember(Member member) {
+    public MemberDO getMember(MemberDO member) {
         return memberDao.getMember(member);
     }
 

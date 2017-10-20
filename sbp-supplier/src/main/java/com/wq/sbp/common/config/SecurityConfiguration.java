@@ -7,6 +7,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 import com.wq.sbp.common.constants.Constants;
 
+/**
+ * 
+ * @Description spring 权限管理
+ * @author zwq
+ * @date 2017年10月16日
+ */
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -23,8 +29,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        //因使用jwt,取消跨域伪造验证
-        http.csrf().disable().httpBasic().and().authorizeRequests().antMatchers("/swagger-ui.html").hasRole("ADMIN").anyRequest().permitAll();
+        // 因使用jwt,取消跨域伪造验证
+        http.csrf().disable().httpBasic().and().authorizeRequests().antMatchers("/swagger-ui.html").hasRole("ADMIN").anyRequest()
+                .permitAll();
     }
 
 }

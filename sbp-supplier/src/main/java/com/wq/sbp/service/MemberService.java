@@ -1,9 +1,9 @@
 package com.wq.sbp.service;
 
-import com.wq.sbp.model.Member;
+import com.wq.sbp.model.MemberDO;
 
 /**
- * 
+ * MemberService
  *
  *
  * @author zwq
@@ -20,5 +20,5 @@ public interface MemberService {
      * @author zwq
      * @since 2017年9月19日
      */
-    Member getMember(Member member);
+    MemberDO getMember(MemberDO member);
 }

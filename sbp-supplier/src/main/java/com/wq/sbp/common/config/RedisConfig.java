@@ -23,7 +23,7 @@ import redis.clients.jedis.JedisPoolConfig;
  *
  *
  * @author zwq
- * @since 2017年7月31日
+ * @date 2017年7月31日
  */
 @Configuration
 @EnableCaching
@@ -62,7 +62,8 @@ public class RedisConfig {
     @Bean
     public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
         StringRedisTemplate template = new StringRedisTemplate(factory);
-        setSerializer(template); // 设置序列化工具，这样ReportBean不需要实现Serializable接口
+        // 设置序列化工具，这样ReportBean不需要实现Serializable接口
+        setSerializer(template);
         template.afterPropertiesSet();
         return template;
     }
